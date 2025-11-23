@@ -2,84 +2,84 @@ const Roadmap = () => {
   const phases = [
     {
       phase: "Phase 1",
-      title: "MVP & Base Integration",
-      status: "Completed",
-      date: "Current",
+      title: "Chatbot + Pyth Integration",
+      status: "Completed ✅",
+      date: "Current - ETH Global",
       items: [
         "Conversational AI Chatbot",
-        "DefiLlama API Integration",
-        "Scroll L2 Deployment",
-        "Basic yield analysis"
+        "Pyth Network real-time prices",
+        "Price queries in natural language",
+        "Smart price alerts system"
       ],
       color: "from-green-500 to-emerald-500",
       statusColor: "bg-green-500"
     },
     {
       phase: "Phase 2",
-      title: "Advanced AI Agent",
+      title: "Transactional Features",
       status: "In Progress",
       date: "Q1 2026",
       items: [
-        "Multi-chain (Arbitrum, Optimism, Base)",
-        "Automatic portfolio tracking",
-        "Smart rebalancing",
-        "APY change alerts"
+        "Execute swaps from chat",
+        "Multi-asset price comparison",
+        "Portfolio value tracking",
+        "Transaction history"
       ],
       color: "from-blue-500 to-cyan-500",
       statusColor: "bg-blue-500"
     },
     {
       phase: "Phase 3",
-      title: "Complex Strategies",
+      title: "HappyHODLers Wallet",
       status: "Planned",
       date: "Q2 2026",
       items: [
-        "Multi-pool yield farming",
-        "Strategy backtesting",
-        "Auto-compounding",
-        "Advanced risk management"
+        "Built-in crypto wallet",
+        "Seamless chat-to-wallet integration",
+        "Multi-chain support",
+        "Gasless transactions"
+      ],
+      color: "from-yellow-400 to-orange-400",
+      statusColor: "bg-yellow-500"
+    },
+    {
+      phase: "Phase 4",
+      title: "WhatsApp Integration",
+      status: "Future",
+      date: "Q3 2026",
+      items: [
+        "WhatsApp Business API",
+        "Trade via WhatsApp messages",
+        "Price alerts on WhatsApp",
+        "Wallet creation from chat"
       ],
       color: "from-purple-500 to-pink-500",
       statusColor: "bg-purple-500"
     },
     {
-      phase: "Phase 4",
-      title: "Social & DAO",
-      status: "Future",
-      date: "Q3 2026",
-      items: [
-        "Social trading (copy strategies)",
-        "DAO for agent governance",
-        "Strategy marketplace",
-        "Position NFTs"
-      ],
-      color: "from-giants-orange to-sandy-brown",
-      statusColor: "bg-giants-orange"
-    },
-    {
       phase: "Phase 5",
-      title: "Enterprise & API",
+      title: "Multi-Platform",
       status: "Future",
       date: "Q4 2026",
       items: [
-        "Public API for developers",
-        "Enterprise solutions",
-        "White-label for DAOs",
-        "CEX integration"
+        "Telegram bot integration",
+        "Discord bot",
+        "Mobile apps (iOS/Android)",
+        "Browser extension"
       ],
-      color: "from-pink-500 to-rose-500",
+      color: "from-pink-400 to-rose-400",
       statusColor: "bg-pink-500"
     },
     {
       phase: "Phase 6",
-      title: "AI Agents Network",
+      title: "DeFi Ecosystem",
       status: "Future",
       date: "2027",
       items: [
-        "Specialized agents network",
-        "Cross-chain arbitrage",
-        "Predictive analytics ML",
-        "Autonomous treasury management"
+        "Yield farming via chat",
+        "Lending/borrowing integration",
+        "NFT trading support",
+        "DAO governance participation"
       ],
       color: "from-indigo-500 to-blue-500",
       statusColor: "bg-indigo-500"
@@ -100,12 +100,12 @@ const Roadmap = () => {
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-3 sm:mb-4 lg:mb-6">
             Our{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
               Roadmap
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto">
-            The future of AI financial agents, step by step
+            From transactional chatbot to multi-platform DeFi assistant
           </p>
         </div>
 
@@ -169,9 +169,9 @@ const Roadmap = () => {
 
         {/* Bottom CTA */}
         <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
-          <p className="text-gray-400 mb-6">¿Quieres ser parte del futuro?</p>
-          <button className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105">
-            Únete a la Comunidad
+          <p className="text-gray-400 mb-6">Join the future of conversational DeFi</p>
+          <button className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 text-gray-900 rounded-full font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-orange-400/50 transition-all duration-300 hover:scale-105">
+            Join the Community
           </button>
         </div>
       </div>

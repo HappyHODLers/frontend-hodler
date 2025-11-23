@@ -7,9 +7,49 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Paleta KIKK style
+        // HappyHODLers Brand Colors
+        'happy-yellow': {
+          DEFAULT: '#FACC15',
+          50: '#FFFBEB',
+          100: '#FEF3C7',
+          200: '#FDE68A',
+          300: '#FCD34D',
+          400: '#FBBF24',
+          500: '#FACC15',
+          600: '#F59E0B',
+          700: '#D97706',
+          800: '#B45309',
+          900: '#92400E'
+        },
+        'happy-orange': {
+          DEFAULT: '#FB923C',
+          50: '#FFF7ED',
+          100: '#FFEDD5',
+          200: '#FED7AA',
+          300: '#FDBA74',
+          400: '#FB923C',
+          500: '#F97316',
+          600: '#EA580C',
+          700: '#C2410C',
+          800: '#9A3412',
+          900: '#7C2D12'
+        },
+        'happy-pink': {
+          DEFAULT: '#F472B6',
+          50: '#FDF2F8',
+          100: '#FCE7F3',
+          200: '#FBCFE8',
+          300: '#F9A8D4',
+          400: '#F472B6',
+          500: '#EC4899',
+          600: '#DB2777',
+          700: '#BE185D',
+          800: '#9D174D',
+          900: '#831843'
+        },
+        // Paleta KIKK style (mantener para compatibilidad)
         'kikk-black': '#000000',
-        'kikk-dark': '#111111', // Gris muy oscuro para fondos
+        'kikk-dark': '#111111',
         'kikk-white': '#FFFFFF',
         'kikk-orange': '#FF9900',
         'kikk-orange-light': '#FFA500',

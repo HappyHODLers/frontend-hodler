@@ -36,7 +36,7 @@ const TransactionHistory = ({ address, isOpen, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 font-mono">
       <div className="bg-gradient-to-br from-licorice via-jet to-licorice rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden border-2 border-jet-600">
         {/* Header */}
-        <div className="bg-gradient-to-r from-giants-orange to-sandy-brown p-4 sm:p-6 flex justify-between items-center">
+        <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 p-4 sm:p-6 flex justify-between items-center">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-seasalt flex items-center gap-2">
               📜 Historial de Transacciones
@@ -58,7 +58,7 @@ const TransactionHistory = ({ address, isOpen, onClose }) => {
         <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-giants-orange"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-400"></div>
               <p className="text-seasalt mt-4">Cargando transacciones...</p>
             </div>
           ) : error ? (
@@ -129,7 +129,7 @@ const TransactionHistory = ({ address, isOpen, onClose }) => {
                 return (
                   <div
                     key={tx.txid + index}
-                    className="rounded-xl p-4 border transition-all duration-300 bg-jet bg-opacity-50 hover:bg-opacity-70 border-jet-600 hover:border-giants-orange"
+                    className="rounded-xl p-4 border transition-all duration-300 bg-jet bg-opacity-50 hover:bg-opacity-70 border-jet-600 hover:border-orange-400"
                   >
                     {/* Primera línea: Monto + Ver ↗ */}
                     <div className="flex items-start justify-between mb-2">
@@ -150,7 +150,7 @@ const TransactionHistory = ({ address, isOpen, onClose }) => {
                         href={tx.explorerUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-giants-orange hover:text-sandy-brown text-xs sm:text-sm font-semibold whitespace-nowrap ml-2"
+                        className="text-orange-400 hover:text-pink-400 text-xs sm:text-sm font-semibold whitespace-nowrap ml-2"
                       >
                         Ver ↗
                       </a>

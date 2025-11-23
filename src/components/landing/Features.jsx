@@ -12,7 +12,14 @@ const Features = () => {
             shadow: "hover:shadow-blue-500/50"
         },
         {
-            icon: "�",
+            icon: "📊",
+            title: "Pyth Network Prices",
+            description: "Real-time price feeds from 500+ assets verified by Binance, OKX, and Coinbase. Ask prices in natural language!",
+            gradient: "from-purple-500 to-pink-500",
+            shadow: "hover:shadow-purple-500/50"
+        },
+        {
+            icon: "💰",
             title: "Best Yields",
             description: "Automatically find the highest returns based on your risk profile and preferences.",
             gradient: "from-green-500 to-emerald-500",
@@ -22,29 +29,22 @@ const Features = () => {
             icon: "⚡",
             title: "Scroll L2",
             description: "Ultra-fast and cheap transactions. $0.02 gas vs $15 on Ethereum mainnet.",
-            gradient: "from-purple-500 to-pink-500",
-            shadow: "hover:shadow-purple-500/50"
+            gradient: "from-indigo-500 to-purple-500",
+            shadow: "hover:shadow-indigo-500/50"
         },
         {
-            icon: "�",
+            icon: "💬",
             title: "Natural Chat",
-            description: "Simply ask: 'Where should I invest 1000 USDC?' and the agent decides for you.",
+            description: "Ask 'What's Bitcoin price?' or 'Compare BTC, ETH and SOL' - the agent understands and responds with verified data.",
             gradient: "from-orange-500 to-red-500",
             shadow: "hover:shadow-orange-500/50"
         },
         {
-            icon: "🔒",
-            title: "Total Security",
-            description: "Audited smart contracts. You always maintain full control of your funds.",
+            icon: "🔔",
+            title: "Smart Alerts",
+            description: "Set price alerts in seconds: 'Notify me if ETH reaches $3,000'. Monitored with Pyth's real-time feeds.",
             gradient: "from-yellow-500 to-orange-500",
             shadow: "hover:shadow-yellow-500/50"
-        },
-        {
-            icon: "�",
-            title: "Smart Decisions",
-            description: "The agent analyzes TVL, risk, APY, and IL to maximize your returns automatically.",
-            gradient: "from-indigo-500 to-blue-500",
-            shadow: "hover:shadow-indigo-500/50"
         }
     ];
 
@@ -58,12 +58,12 @@ const Features = () => {
                 <div className="text-center mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-0">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-kikk-white mb-3 sm:mb-4 lg:mb-6">
                         Why choose{" "}
-                        <span className="bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent">
-                            LlamaRollup?
+                        <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
+                            HappyHODLers?
                         </span>
                     </h2>
                     <p className="text-sm sm:text-base md:text-lg lg:text-xl text-seasalt max-w-3xl mx-auto">
-                        We combine AI, real-time data from DefiLlama, and the speed of Scroll L2
+                        We combine AI, Pyth Network verified prices, DefiLlama pool data, and Scroll L2 speed
                     </p>
                 </div>
 
@@ -74,7 +74,7 @@ const Features = () => {
               key={index}
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
-              className={`group relative bg-kikk-dark/20 backdrop-blur-lg p-4 sm:p-6 lg:p-8 rounded-2xl border-2 border-giants-orange/20 transition-all duration-500 hover:border-sandy-brown/50 hover:shadow-[0_25px_50px_rgba(249,98,48,0.15),0_15px_30px_rgba(249,98,48,0.1),0_8px_16px_rgba(249,98,48,0.08)] hover:-translate-y-6 hover:rotate-1 cursor-pointer transform-gpu`}
+              className={`group relative bg-kikk-dark/20 backdrop-blur-lg p-4 sm:p-6 lg:p-8 rounded-2xl border-2 border-orange-400/20 transition-all duration-500 hover:border-pink-400/50 hover:shadow-[0_25px_50px_rgba(251,146,60,0.15),0_15px_30px_rgba(251,146,60,0.1),0_8px_16px_rgba(251,146,60,0.08)] hover:-translate-y-6 hover:rotate-1 cursor-pointer transform-gpu`}
             >
               {/* 3D Shadow layers with depth */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/20 via-purple-500/10 to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500 -z-10 transform translate-y-2 translate-x-2 group-hover:translate-y-8 group-hover:translate-x-4 shadow-xl group-hover:shadow-2xl"></div>
@@ -89,7 +89,7 @@ const Features = () => {
                             </div>
 
                             {/* Title */}
-                            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-kikk-white mb-2 sm:mb-3 lg:mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-giants-orange group-hover:to-sandy-brown transition-all duration-300 transform group-hover:scale-105 group-hover:-translate-y-1">
+                            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-kikk-white mb-2 sm:mb-3 lg:mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-yellow-400 group-hover:to-pink-400 transition-all duration-300 transform group-hover:scale-105 group-hover:-translate-y-1">
                                 {feature.title}
                             </h3>
 
@@ -106,9 +106,9 @@ const Features = () => {
 
                 {/* Bottom CTA */}
                 <div className="mt-16 text-center">
-                    <p className="text-gray-600 mb-6">¿Listo para comenzar?</p>
-                    <button className="px-8 py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105">
-                        Explorar Funcionalidades
+                    <p className="text-seasalt mb-6">Ready to start trading with AI?</p>
+                    <button className="px-8 py-4 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 text-gray-900 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-orange-400/50 transition-all duration-300 hover:scale-105">
+                        Explore Features
                     </button>
                 </div>
             </div>

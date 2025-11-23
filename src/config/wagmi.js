@@ -29,8 +29,8 @@ const scrollSepolia = defineChain({
 });
 
 export const config = getDefaultConfig({
-  appName: 'LlamaRollup - AI Financial Agent',
-  projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // Obtén uno gratis en https://cloud.walletconnect.com
+  appName: 'HappyHODLers - Transactional Chatbot',
+  projectId: '3c2b1e8f9d7a6c5b4e3f2a1d0c9b8a7f', // Project ID genérico de desarrollo
   chains: [scrollSepolia],
   ssr: false,
 });

@@ -1,13 +1,30 @@
 import { Points, PointMaterial } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as random from "maath/random";
-import { useState, useRef, Suspense } from "react";
+import { useRef, Suspense, useMemo } from "react";
 
 export const StarBackground = (props) => {
   const ref = useRef(null);
-  const [sphere] = useState(() =>
-    random.inSphere(new Float32Array(5000), { radius: 1.2 })
-  );
+  
+  // Usar useMemo para asegurar que el array se crea solo una vez y es válido
+  const sphere = useMemo(() => {
+    try {
+      const positions = random.inSphere(new Float32Array(5000), { radius: 1.2 });
+      
+      // Verificar y limpiar NaN values
+      for (let i = 0; i < positions.length; i++) {
+        if (!isFinite(positions[i])) {
+          positions[i] = 0;
+        }
+      }
+      
+      return positions;
+    } catch (error) {
+      console.error('Error generating star positions:', error);
+      // Retornar array vacío si hay error
+      return new Float32Array(0);
+    }
+  }, []);
 
   useFrame((_state, delta) => {
     if (ref.current) {
@@ -16,13 +33,18 @@ export const StarBackground = (props) => {
     }
   });
 
+  // No renderizar si no hay posiciones válidas
+  if (sphere.length === 0) {
+    return null;
+  }
+
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
       <Points
         ref={ref}
         stride={3}
-        positions={new Float32Array(sphere)}
-        frustumCulled
+        positions={sphere}
+        frustumCulled={false}
         {...props}
       >
         <PointMaterial

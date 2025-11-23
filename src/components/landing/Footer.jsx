@@ -9,9 +9,9 @@ const Footer = () => {
       { name: "Team", href: "#team" }
     ],
     resources: [
-      { name: "DefiLlama Docs", href: "https://docs.llama.fi" },
+      { name: "Pyth Network Docs", href: "https://docs.pyth.network" },
       { name: "Scroll Network", href: "https://scroll.io" },
-      { name: "GitHub", href: "https://github.com/LlamaRollup" },
+      { name: "GitHub", href: "https://github.com/HappyHODLers" },
       { name: "Smart Contracts", href: "#" }
     ],
     community: [
@@ -84,18 +84,18 @@ const Footer = () => {
           {/* Brand section */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl">🦙</span>
-              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent">
-                LlamaRollup
+              <span className="text-2xl">😊</span>
+              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
+                HappyHODLers
               </span>
             </div>
             <p className="text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-              AI Financial Agent that maximizes your DeFi yields. Powered by DefiLlama + Scroll L2.
+              Transactional Chatbot powered by Pyth Network real-time prices. Trade and check prices with simple conversations.
             </p>
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">DefiLlama</span>
+              <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Pyth Network</span>
               <span className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full border border-orange-500/30">Scroll L2</span>
-              <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">AI Agent</span>
+              <span className="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full border border-yellow-500/30">AI Chatbot</span>
             </div>
           </div>
         </div>
@@ -103,15 +103,15 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
           <p className="text-gray-400 text-xs sm:text-sm">
-            © {currentYear} LlamaRollup. Made with 🦙 and ❤️ to democratize DeFi.
+            © {currentYear} HappyHODLers. Made with 😊 and ❤️ for the crypto community.
           </p>
           <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
             <span>Powered by</span>
-            <span className="font-semibold text-blue-400">DefiLlama</span>
+            <span className="font-semibold text-purple-400">Pyth Network</span>
             <span>•</span>
             <span className="font-semibold text-orange-400">Scroll L2</span>
             <span>•</span>
-            <span className="font-semibold text-purple-400">OpenAI</span>
+            <span className="font-semibold text-yellow-400">AI</span>
           </div>
         </div>
       </div>

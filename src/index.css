@@ -32,20 +32,20 @@ html {
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: #d97706; /* giants-orange */
+  background: #FB923C; /* happy-orange */
   border-radius: 10px; /* Bordes redondeados */
   transition: all 0.3s ease;
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: #ea580c; /* sandy-brown - efecto brillante al hover */
-  box-shadow: 0 0 10px rgba(217, 119, 6, 0.5); /* Brillo naranja */
+  background: #F472B6; /* happy-pink - efecto brillante al hover */
+  box-shadow: 0 0 10px rgba(251, 146, 60, 0.5); /* Brillo naranja */
 }
 
 /* Para Firefox */
 .sidebar-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #d97706 rgba(0, 0, 0, 0.2);
+  scrollbar-color: #FB923C rgba(0, 0, 0, 0.2);
 }
 
 /* ===== ANIMACIONES AVANZADAS ===== */

@@ -1,7 +1,7 @@
 /**
- * LlamaRollup - AI Financial Agent Component
- * Chatbot conversacional que analiza yields DeFi usando DefiLlama API
- * y ejecuta inversiones optimizadas en Scroll L2
+ * HappyHODLers - AI Financial Agent Component
+ * Chatbot conversacional con precios en tiempo real de Pyth Network
+ * y transacciones en Scroll L2
  */
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useAccount, useDisconnect, useBalance, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
@@ -10,6 +10,8 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { getSTXTransfers, sendChatMessage, prepareTransfer } from '../services/chatService';
 import { getBalance, getUserContacts, createContact } from '../services/scrollSepoliaService';
 import TransactionHistory from './TransactionHistory';
+import PriceCard from './PriceCard';
+import ComparisonView from './ComparisonView';
 import logoStack from '../assets/logo_stack.png';
 import logoChatBot from '../assets/logoChatBot.png';
 
@@ -18,17 +20,17 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
       id: 0,
-      text: `Hello! 🦙 I'm LlamaRollup, your AI Financial Agent.
+      text: `Hello! 😊 I'm HappyHODLers, your AI Financial Agent.
 
 I can help you:
 
-📊 **Find the best yields** in DeFi
-💰 **Analyze +10,000 liquidity pools** in real-time
-⚡ **Execute investments** on Scroll L2
-🎯 **Maximize your returns** automatically
+📊 **Check real-time crypto prices** powered by Pyth Network
+💰 **Track your portfolio** with live price feeds
+⚡ **Execute transfers** on Scroll L2 ($0.02 gas)
+🎯 **Compare multiple assets** side-by-side
 
 Ask me something like:
-*"Where should I invest 1000 USDC?"* or *"Find the best APY for ETH"*
+*"What's Bitcoin price?"* or *"Compare BTC and ETH"*
 
 How can I help you today?`,
       sender: 'bot'
@@ -230,7 +232,7 @@ How can I help you today?`,
             href={explorerUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-giants-orange to-sandy-brown hover:from-rust hover:to-giants-orange text-seasalt font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 rounded-lg sm:rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-xs sm:text-sm md:text-base"
+            className="flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 hover:from-pink-400 hover:to-yellow-400 text-gray-900 font-bold py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 rounded-lg sm:rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-xs sm:text-sm md:text-base"
           >
             <span className="text-lg sm:text-xl md:text-2xl">🔗</span>
             <span>Ver Transacción en Explorer</span>
@@ -266,7 +268,7 @@ How can I help you today?`,
                 href={part}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sandy-brown hover:text-giants-orange underline font-semibold transition-colors"
+                className="inline-flex items-center gap-1 text-orange-400 hover:text-pink-400 underline font-semibold transition-colors"
               >
                 <span className="text-xs sm:text-sm">🔗</span>
                 <span className="text-xs sm:text-sm md:text-base">Ver enlace</span>
@@ -534,7 +536,29 @@ How can I help you today?`,
       
       // Procesar la respuesta del backend
       if (response && response.message) {
-        setChatResponse(response.message);
+        // Verificar si es una consulta de precio o comparación
+        if (response.action === 'price_query' && response.priceData) {
+          // Agregar mensaje con componente de precio
+          setMessages(prev => [...prev, {
+            id: Date.now(),
+            text: response.message,
+            sender: 'bot',
+            priceData: response.priceData,
+            isPriceQuery: true
+          }]);
+        } else if (response.action === 'price_comparison' && response.priceData) {
+          // Agregar mensaje con comparación de precios
+          setMessages(prev => [...prev, {
+            id: Date.now(),
+            text: response.message,
+            sender: 'bot',
+            priceData: response.priceData,
+            isComparison: true
+          }]);
+        } else {
+          // Mensaje normal
+          setChatResponse(response.message);
+        }
         
         // Si hay una acción específica, manejarla aquí
         if (response.action === 'transfer') {
@@ -761,7 +785,7 @@ How can I help you today?`,
         <div className="p-4">
           {/* Logo y título del sidebar */}
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-jet-600">
-            <img src={logoStack} alt="Logo" className="w-10 h-10 rounded-full border-2 border-giants-orange shadow-lg shadow-giants-orange/30" />
+            <img src={logoStack} alt="Logo" className="w-10 h-10 rounded-full border-2 border-orange-400 shadow-lg shadow-orange-400/30" />
             <div>
               <h3 className="text-seasalt font-bold text-lg">🦙 LlamaRollup</h3>
               <p className="text-jet-800 text-xs">AI Financial Agent • DefiLlama + Scroll L2</p>
@@ -847,7 +871,7 @@ How can I help you today?`,
               {isConnected && userAddress && recentTransactions.length > 0 && (
                 <button
                   onClick={() => setShowHistoryModal(true)}
-                  className="text-giants-orange hover:text-sandy-brown text-xs font-semibold transition-colors"
+                  className="text-orange-400 hover:text-pink-400 text-xs font-semibold transition-colors"
                   title="Ver historial completo"
                 >
                   Ver todo →
@@ -863,7 +887,7 @@ How can I help you today?`,
                 </div>
               ) : loadingHistory ? (
                 <div className="flex flex-col items-center justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-giants-orange"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-400"></div>
                   <p className="text-jet-800 text-xs mt-2">Loading...</p>
                 </div>
               ) : recentTransactions.length === 0 ? (
@@ -943,7 +967,7 @@ How can I help you today?`,
                           href={tx.explorerUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-giants-orange hover:text-sandy-brown text-[10px] font-semibold whitespace-nowrap ml-2"
+                          className="text-orange-400 hover:text-pink-400 text-[10px] font-semibold whitespace-nowrap ml-2"
                         >
                           Ver ↗
                         </a>
@@ -1006,15 +1030,15 @@ How can I help you today?`,
             {/* Botón hamburguesa para móvil */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-licorice transition-all duration-200 hover:scale-105 border border-transparent hover:border-giants-orange"
+              className="lg:hidden p-2 rounded-lg hover:bg-licorice transition-all duration-200 hover:scale-105 border border-transparent hover:border-orange-400"
               aria-label="Toggle sidebar"
             >
-              <svg className="w-6 h-6 text-giants-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
             
-            <img src={logoStack} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-giants-orange shadow-md hover:shadow-giants-orange/50 transition-shadow" />
+            <img src={logoStack} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-orange-400 shadow-md hover:shadow-orange-400/50 transition-shadow" />
             <div>
               <h2 className="text-seasalt font-bold text-sm sm:text-base flex items-center gap-2">
                 <span>🦙 LlamaRollup</span>
@@ -1069,6 +1093,20 @@ How can I help you today?`,
                       // Renderizar mensaje del bot con formato especial
                       <div className="text-left">
                         {formatBotMessage(message.text)}
+                        
+                        {/* Renderizar PriceCard si es una consulta de precio */}
+                        {message.isPriceQuery && message.priceData && (
+                          <div className="mt-4">
+                            <PriceCard data={message.priceData} />
+                          </div>
+                        )}
+                        
+                        {/* Renderizar ComparisonView si es una comparación */}
+                        {message.isComparison && message.priceData && (
+                          <div className="mt-4">
+                            <ComparisonView data={message.priceData} />
+                          </div>
+                        )}
                       </div>
                     ) : (
                       // Mensaje del usuario sin formato especial
@@ -1102,7 +1140,7 @@ How can I help you today?`,
             
             {pendingTransfer && (
               <div className="flex justify-center px-2 sm:px-4">
-                <div className="bg-gradient-to-br from-rust to-licorice border-2 border-giants-orange p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg sm:rounded-xl max-w-full sm:max-w-md w-full shadow-2xl shadow-giants-orange/30">
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-orange-400 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg sm:rounded-xl max-w-full sm:max-w-md w-full shadow-2xl shadow-orange-400/30">
                   <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-seasalt mb-3 sm:mb-4 flex items-center gap-2">
                     <span className="text-xl sm:text-2xl md:text-3xl">🔔</span> 
                     <span>Confirmar Transferencia</span>
@@ -1175,21 +1213,21 @@ How can I help you today?`,
           <div className="flex gap-2 mb-3 overflow-x-auto pb-2">
             <button
               onClick={handleBalanceCheck}
-              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-giants-orange transition-colors"
+              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-orange-400 transition-colors"
             >
               💰 Balance
             </button>
             
             <button
               onClick={() => handleShortcut('What is the best yield for USDC?')}
-              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-giants-orange transition-colors"
+              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-orange-400 transition-colors"
             >
               📊 Best Yield
             </button>
 
             <button
               onClick={() => handleShortcut('Find high APY on Scroll')}
-              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-giants-orange transition-colors"
+              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-orange-400 transition-colors"
             >
               ⚡ Scroll Pools
             </button>
@@ -1233,7 +1271,7 @@ How can I help you today?`,
             </div>
 
             {/* Textarea expandible */}
-            <div className="flex-1 bg-licorice rounded-2xl border border-jet-600 focus-within:border-giants-orange transition-colors">
+            <div className="flex-1 bg-licorice rounded-2xl border border-jet-600 focus-within:border-orange-400 transition-colors">
               <textarea
                 ref={textareaRef}
                 value={listening ? (finalTranscript + interimTranscript) : input}

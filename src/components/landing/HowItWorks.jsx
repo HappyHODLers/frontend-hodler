@@ -10,14 +10,14 @@ const HowItWorks = () => {
     {
       number: "02",
       title: "Pregunta en Lenguaje Natural",
-      description: "Di: 'Encuentra el mejor yield para mis 1000 USDC'. El agente entiende tu intención y analiza miles de opciones.",
-      icon: "�",
+      description: "Di: 'What's Bitcoin price?' o 'Find best yield for 1000 USDC'. El agente entiende y consulta Pyth Network + DefiLlama.",
+      icon: "💬",
       color: "from-purple-500 to-pink-500"
     },
     {
       number: "03",
-      title: "IA Analiza con DefiLlama",
-      description: "El agente consulta +10,000 pools en tiempo real, filtra por riesgo, TVL y APY, y te recomienda la mejor opción.",
+      title: "IA Analiza con Pyth + DefiLlama",
+      description: "El agente obtiene precios verificados de Pyth Network y analiza +10,000 pools en DefiLlama para recomendarte la mejor opción.",
       icon: "🧠",
       color: "from-indigo-500 to-blue-500"
     },
@@ -40,12 +40,12 @@ const HowItWorks = () => {
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-kikk-white mb-3 sm:mb-4 lg:mb-6">
             How Does It{" "}
-            <span className="bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
               Work?
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-seasalt max-w-2xl mx-auto">
-            From question to optimized investment in less than 30 seconds
+            From chat to verified trade in seconds with Pyth Network
           </p>
         </div>
 
@@ -76,7 +76,7 @@ const HowItWorks = () => {
 
               {/* Visual Card */}
               <div className="flex-1 w-full max-w-md">
-                <div className={`relative bg-kikk-dark/20 backdrop-blur-lg p-4 sm:p-6 lg:p-8 rounded-3xl shadow-2xl border-2 border-giants-orange/20 hover:border-sandy-brown/50 transition-all duration-500 group`}>
+                <div className={`relative bg-kikk-dark/20 backdrop-blur-lg p-4 sm:p-6 lg:p-8 rounded-3xl shadow-2xl border-2 border-orange-400/20 hover:border-pink-400/50 transition-all duration-500 group`}>
                   {/* Gradient glow */}
                   <div className={`absolute inset-0 bg-gradient-to-r ${step.color} rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-2xl`}></div>
                   
@@ -100,9 +100,9 @@ const HowItWorks = () => {
 
         {/* Bottom decoration */}
         <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
-          <div className="inline-flex items-center gap-2 bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg">
-            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span className="text-gray-700 font-medium text-sm sm:text-base">AI + DefiLlama + Scroll L2 = Maximum Returns</span>
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg">
+            <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+            <span className="text-white font-medium text-sm sm:text-base">AI + Pyth Network + DefiLlama + Scroll L2 = Maximum Returns</span>
           </div>
         </div>
       </div>

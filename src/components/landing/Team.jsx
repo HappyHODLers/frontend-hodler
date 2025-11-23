@@ -8,22 +8,22 @@ const Team = () => {
       name: "Omar",
       role: "Developer Full-Stack Blockchain | AI Engineer",
       image: omarImg,
-      gradient: "from-giants-orange to-sandy-brown",
-      description: "Especialista en Smart Contracts y arquitectura descentralizada"
+      gradient: "from-yellow-400 to-orange-400",
+      description: "Smart Contracts specialist and decentralized architecture expert"
     },
     {
       name: "Jhamil",
       role: "Full Stack Developer | Backend Blockchain",
       image: jhamilImg,
-      gradient: "from-kikk-dark to-giants-orange",
-      description: "Experto en desarrollo frontend y experiencia de usuario"
+      gradient: "from-orange-400 to-pink-400",
+      description: "Frontend development and user experience expert"
     },
     {
       name: "Yamil",
       role: "Full Stack Developer | Blockchain Developer",
       image: yamilImg,
-      gradient: "from-sandy-brown to-giants-orange",
-      description: "Ingeniero especializado en IA y sistemas backend robustos"
+      gradient: "from-pink-400 to-purple-400",
+      description: "AI engineer specialized in robust backend systems"
     }
   ];
 
@@ -36,13 +36,13 @@ const Team = () => {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-kikk-white mb-3 sm:mb-4 lg:mb-6">
-            Conoce al{" "}
-            <span className="bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent">
-              Equipo
+            Meet the{" "}
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
+              Team
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-seasalt max-w-2xl mx-auto">
-            Desarrolladores apasionados construyendo el futuro del blockchain conversacional
+            Passionate developers building the future of conversational DeFi
           </p>
         </div>
 
@@ -75,7 +75,7 @@ const Team = () => {
                 {/* Content */}
                 <div className="px-6 sm:px-8 lg:px-10 relative">
                   {/* Name */}
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-kikk-white mb-3 sm:mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-giants-orange group-hover:to-sandy-brown transition-all duration-300 text-center">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-kikk-white mb-3 sm:mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-yellow-400 group-hover:to-pink-400 transition-all duration-300 text-center">
                     {member.name}
                   </h3>
 
@@ -100,7 +100,7 @@ const Team = () => {
         </div>
 
         <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
-          <div className="inline-flex items-center gap-2 bg-kikk-dark/20 backdrop-blur-lg px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg border-2 border-giants-orange/20">
+          <div className="inline-flex items-center gap-2 bg-kikk-dark/20 backdrop-blur-lg px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg border-2 border-orange-400/20">
             <span className="text-kikk-white">💼 Construyendo el futuro juntos</span>
           </div>
         </div>

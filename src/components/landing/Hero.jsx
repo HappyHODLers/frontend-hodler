@@ -26,32 +26,32 @@ const Hero = ({ onStartChat }) => {
                     {/* Logo/Icono */}
                     <div className="mb-6 sm:mb-8 md:mb-10 flex justify-center">
                       <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-giants-orange to-sandy-brown rounded-full blur-2xl opacity-50 animate-pulse"></div>
-                        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br from-giants-orange to-sandy-brown flex items-center justify-center shadow-2xl shadow-giants-orange/40 border-4 border-white/20">
-                          <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl">🦙</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 rounded-full blur-2xl opacity-50 animate-pulse"></div>
+                        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400 flex items-center justify-center shadow-2xl shadow-orange-400/40 border-4 border-white/20">
+                          <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl">😊</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Main Heading with Gradient */}
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 sm:mb-6 leading-tight">
-                        <span className="block text-kikk-white mb-1 sm:mb-2">🦙 <span className=" bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent animate-gradient-x">LlamaRollup</span></span>
+                        <span className="block text-kikk-white mb-1 sm:mb-2">😊 <span className=" bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">HappyHODLers</span></span>
                         
                     </h1>
 
                     {/* Description */}
                     <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-seasalt max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed font-light px-4 sm:px-0">
-                        The first <span className="text-giants-orange font-semibold">AI Financial Agent</span> that maximizes your DeFi yields with a simple conversation
+                        <span className="text-yellow-400 font-semibold">Transactional Chatbot</span> powered by <span className="text-purple-400 font-semibold">Pyth Network</span> real-time prices. Trade, check prices, and get DeFi insights with a simple conversation 💬
                     </p>
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-0">
                         <button 
                             onClick={onStartChat}
-                            className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-giants-orange to-sandy-brown text-kikk-white rounded-full font-semibold text-base sm:text-lg shadow-2xl hover:shadow-giants-orange/50 transition-all duration-300 hover:scale-105 overflow-hidden w-full sm:w-auto"
+                            className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 text-gray-900 rounded-full font-bold text-base sm:text-lg shadow-2xl hover:shadow-orange-400/50 transition-all duration-300 hover:scale-105 overflow-hidden w-full sm:w-auto"
                         >
                             <span className="relative z-10 flex items-center gap-2">
-                                Start Now
+                                Start Chatting
                                 <svg
                                     className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                                     fill="none"
@@ -66,26 +66,34 @@ const Hero = ({ onStartChat }) => {
                                     />
                                 </svg>
                             </span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-sandy-brown to-giants-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-pink-400 via-orange-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </button>
 
-                        <button className="px-6 sm:px-8 py-3 sm:py-4 bg-kikk-dark/50 backdrop-blur-sm text-kikk-white rounded-full font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-giants-orange/30 hover:border-sandy-brown/50 w-full sm:w-auto">
+                        <button className="px-6 sm:px-8 py-3 sm:py-4 bg-kikk-dark/50 backdrop-blur-sm text-kikk-white rounded-full font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-orange-400/30 hover:border-pink-400/50 w-full sm:w-auto">
                             Watch Demo
                         </button>
                     </div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-2xl mx-auto px-4 sm:px-0">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto px-4 sm:px-0">
                         <div className="text-center">
-                            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent mb-1 sm:mb-2">
-                                10K+
+                            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-1 sm:mb-2">
+                                500+
                             </div>
                             <div className="text-xs sm:text-sm lg:text-base text-seasalt">
-                                Pools Analyzed
+                                Pyth Price Feeds
                             </div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent mb-1 sm:mb-2">
+                            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-1 sm:mb-2">
+                                Real-Time
+                            </div>
+                            <div className="text-xs sm:text-sm lg:text-base text-seasalt">
+                                Verified Prices
+                            </div>
+                        </div>
+                        <div className="text-center">
+                            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent mb-1 sm:mb-2">
                                 $0.02
                             </div>
                             <div className="text-xs sm:text-sm lg:text-base text-seasalt">
@@ -93,11 +101,11 @@ const Hero = ({ onStartChat }) => {
                             </div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-giants-orange to-sandy-brown bg-clip-text text-transparent mb-1 sm:mb-2">
-                                8.4%
+                            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-400 to-yellow-400 bg-clip-text text-transparent mb-1 sm:mb-2">
+                                24/7
                             </div>
                             <div className="text-xs sm:text-sm lg:text-base text-seasalt">
-                                Avg APY
+                                AI Assistant
                             </div>
                         </div>
                     </div>

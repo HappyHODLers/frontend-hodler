@@ -1,10 +1,78 @@
 /**
  * Servicio para comunicarse con el backend Flask para el chatbot y transferencias
  */
+import pythService from './pythService';
 
 // URL base del backend
 const API_BASE_URL = "https://clary-backend-ai.onrender.com/";
 //const API_BASE_URL = "http://127.0.0.1:5000";
+
+/**
+ * Detecta si el mensaje es una consulta de precio
+ */
+export const detectPriceQuery = (message) => {
+  const lowerMsg = message.toLowerCase();
+  
+  // Patrones para detectar consultas de precio
+  const pricePatterns = [
+    /(?:what'?s|what is|how much is|price of|precio de|cuánto está|cotización de)\s+(\w+)/i,
+    /(\w+)\s+(?:price|precio|cotización)/i,
+  ];
+  
+  for (const pattern of pricePatterns) {
+    const match = message.match(pattern);
+    if (match) {
+      return {
+        isPrice: true,
+        asset: match[1],
+      };
+    }
+  }
+  
+  return { isPrice: false };
+};
+
+/**
+ * Detecta si el mensaje pide comparar múltiples assets
+ */
+export const detectComparison = (message) => {
+  const lowerMsg = message.toLowerCase();
+  
+  if (lowerMsg.includes('compare') || lowerMsg.includes('compara')) {
+    // Extraer símbolos (BTC, ETH, SOL, etc.)
+    const assets = [];
+    const symbols = ['BTC', 'ETH', 'SOL', 'USDC', 'USDT', 'DAI', 'AVAX', 'MATIC', 'ARB', 'OP', 'BNB', 'ADA', 'DOT', 'LINK', 'UNI'];
+    
+    for (const symbol of symbols) {
+      const regex = new RegExp(symbol, 'i');
+      if (regex.test(message)) {
+        assets.push(symbol);
+      }
+    }
+    
+    // También buscar nombres completos
+    const nameMapping = {
+      'bitcoin': 'BTC',
+      'ethereum': 'ETH',
+      'solana': 'SOL',
+    };
+    
+    for (const [name, symbol] of Object.entries(nameMapping)) {
+      const regex = new RegExp(name, 'i');
+      if (regex.test(message) && !assets.includes(symbol)) {
+        assets.push(symbol);
+      }
+    }
+    
+    return {
+      isComparison: assets.length >= 2,
+      assets,
+    };
+  }
+  
+  return { isComparison: false };
+};
+
 /**
  * Envía un mensaje al chatbot y recibe una acción recomendada
  * @param {string} message - El mensaje del usuario para el chatbot
@@ -12,6 +80,29 @@ const API_BASE_URL = "https://clary-backend-ai.onrender.com/";
  */
 export const sendChatMessage = async (message, senderWallet = '') => {
   try {
+    // Primero verificar si es una consulta de precio
+    const priceQuery = detectPriceQuery(message);
+    if (priceQuery.isPrice) {
+      const priceData = await pythService.getPrice(priceQuery.asset);
+      return {
+        action: 'price_query',
+        message: `📊 Here's the current price for ${priceData.symbol}`,
+        priceData,
+      };
+    }
+    
+    // Verificar si es una comparación
+    const comparison = detectComparison(message);
+    if (comparison.isComparison) {
+      const prices = await pythService.getPrices(comparison.assets);
+      return {
+        action: 'price_comparison',
+        message: `📊 Here's the comparison for ${comparison.assets.join(', ')}`,
+        priceData: prices,
+      };
+    }
+    
+    // Si no es consulta de precio, enviar al backend normal
     const response = await fetch(`${API_BASE_URL}/chat`, {
       method: 'POST',
       headers: {

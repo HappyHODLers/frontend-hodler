@@ -1,7 +1,6 @@
 /**
  * HappyHODLers - AI Financial Agent Component
  * Chatbot conversacional con precios en tiempo real de Pyth Network
- * y transacciones en Scroll L2
  */
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
@@ -20,19 +19,22 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
       id: 0,
-      text: `Hello! 😊 I'm HappyHODLers, your AI Financial Agent.
+      text: `Hello! 😊 I'm HappyHODLers, your AI Financial Agent powered by **Pyth Network**.
 
-I can help you:
+🔥 **What I can do:**
 
-📊 **Check real-time crypto prices** powered by Pyth Network
-💰 **Track your portfolio** with live price feeds
-⚡ **Execute transfers** on Scroll L2 ($0.02 gas)
-🎯 **Compare multiple assets** side-by-side
+📊 Get real-time prices for 15+ crypto assets
+🔍 Compare multiple assets side-by-side  
+⚡ Prices updated every 400ms from top exchanges
+🎯 Confidence intervals for data accuracy
 
-Ask me something like:
-*"What's Bitcoin price?"* or *"Compare BTC and ETH"*
+💡 **Try asking:**
+• "What's Bitcoin price?"
+• "Compare BTC, ETH, and SOL"
+• "Show me USDC price"
+• "What's the price of Solana?"
 
-How can I help you today?`,
+Click the buttons below or just type naturally! 🚀`,
       sender: 'bot'
     }
   ]);
@@ -1193,32 +1195,129 @@ How can I help you today?`,
             )}
             
             <div ref={messagesEndRef} />
+            
+            {/* Popular Assets Suggestions - Solo si hay pocos mensajes */}
+            {messages.length <= 1 && !isChatLoading && (
+              <div className="mt-8 px-2 sm:px-4">
+                <div className="max-w-3xl mx-auto">
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text mb-2">
+                      🔥 Popular Assets on Pyth Network
+                    </h3>
+                    <p className="text-sm text-gray-400">Click to check real-time prices</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                    {[
+                      { symbol: 'BTC', name: 'Bitcoin', icon: '₿', color: 'from-orange-400 to-yellow-400' },
+                      { symbol: 'ETH', name: 'Ethereum', icon: 'Ξ', color: 'from-purple-400 to-blue-400' },
+                      { symbol: 'SOL', name: 'Solana', icon: '◎', color: 'from-purple-400 to-pink-400' },
+                      { symbol: 'USDC', name: 'USD Coin', icon: '💵', color: 'from-green-400 to-emerald-400' },
+                      { symbol: 'AVAX', name: 'Avalanche', icon: '🔺', color: 'from-red-400 to-pink-400' },
+                    ].map((asset) => (
+                      <button
+                        key={asset.symbol}
+                        onClick={() => handleShortcut(`What's ${asset.name} price?`)}
+                        className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border-2 border-gray-700 hover:border-orange-400 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-400/20"
+                      >
+                        <div className={`text-3xl mb-2 bg-gradient-to-br ${asset.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform`}>
+                          {asset.icon}
+                        </div>
+                        <div className="text-white font-bold text-sm mb-1">{asset.symbol}</div>
+                        <div className="text-gray-400 text-xs">{asset.name}</div>
+                      </button>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-6 text-center">
+                    <button
+                      onClick={() => handleShortcut('Compare BTC, ETH, SOL, USDC, and AVAX')}
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 text-purple-300 px-6 py-3 rounded-full border border-purple-400/40 hover:border-purple-400 transition-all shadow-lg hover:shadow-purple-400/30"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                      <span className="font-semibold">Compare All 5 Assets</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Input Area - Estilo WhatsApp */}
         <div className="bg-jet border-t border-jet-700 p-3 sm:p-4">
-          {/* Atajos rápidos */}
-          <div className="flex gap-2 mb-3 overflow-x-auto pb-2">
+          {/* Atajos rápidos con categorías de Pyth - Colores vibrantes */}
+          <div className="flex gap-2 mb-3 overflow-x-auto pb-2 scrollbar-hide">
+            {/* Major Cryptos */}
             <button
-              onClick={handleBalanceCheck}
-              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-orange-400 transition-colors"
+              onClick={() => handleShortcut('What\'s Bitcoin price?')}
+              className="px-4 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-orange-400 hover:border-yellow-300 transition-all shadow-lg hover:shadow-orange-500/50 hover:scale-105 font-bold"
             >
-              💰 Balance
+              ₿ Bitcoin
             </button>
             
             <button
-              onClick={() => handleShortcut('What is the best yield for USDC?')}
-              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-orange-400 transition-colors"
+              onClick={() => handleShortcut('What\'s Ethereum price?')}
+              className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-purple-400 hover:border-blue-300 transition-all shadow-lg hover:shadow-purple-500/50 hover:scale-105 font-bold"
             >
-              📊 Best Yield
+              Ξ Ethereum
             </button>
 
             <button
-              onClick={() => handleShortcut('Find high APY on Scroll')}
-              className="px-4 py-2 bg-licorice hover:bg-jet-400 text-seasalt rounded-full text-xs sm:text-sm whitespace-nowrap border border-jet-600 hover:border-orange-400 transition-colors"
+              onClick={() => handleShortcut('What\'s Solana price?')}
+              className="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-pink-400 hover:border-purple-300 transition-all shadow-lg hover:shadow-pink-500/50 hover:scale-105 font-bold"
             >
-              ⚡ Scroll Pools
+              ◎ Solana
+            </button>
+            
+            {/* Stablecoins */}
+            <button
+              onClick={() => handleShortcut('Compare USDC, USDT, and DAI')}
+              className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-green-400 hover:border-emerald-300 transition-all shadow-lg hover:shadow-green-500/50 hover:scale-105 font-bold"
+            >
+              💵 Stablecoins
+            </button>
+
+            {/* L2 Tokens */}
+            <button
+              onClick={() => handleShortcut('Show me ARB, OP, and MATIC prices')}
+              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-blue-400 hover:border-cyan-300 transition-all shadow-lg hover:shadow-blue-500/50 hover:scale-105 font-bold"
+            >
+              🔵 L2 Tokens
+            </button>
+            
+            {/* DeFi Tokens */}
+            <button
+              onClick={() => handleShortcut('Compare LINK and UNI prices')}
+              className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-indigo-400 hover:border-violet-300 transition-all shadow-lg hover:shadow-indigo-500/50 hover:scale-105 font-bold"
+            >
+              🦄 DeFi
+            </button>
+
+            {/* Alt L1s */}
+            <button
+              onClick={() => handleShortcut('Show me AVAX, ADA, DOT, and BNB')}
+              className="px-4 py-2 bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-red-400 hover:border-rose-300 transition-all shadow-lg hover:shadow-red-500/50 hover:scale-105 font-bold"
+            >
+              🔺 Alt L1s
+            </button>
+
+            {/* Top 3 Comparison */}
+            <button
+              onClick={() => handleShortcut('Compare BTC, ETH, and SOL')}
+              className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-yellow-400 hover:border-amber-300 transition-all shadow-lg hover:shadow-yellow-500/50 hover:scale-105 font-bold"
+            >
+              📊 Top 3
+            </button>
+
+            {/* Balance Check */}
+            <button
+              onClick={handleBalanceCheck}
+              className="px-4 py-2 bg-gradient-to-r from-slate-500 to-gray-600 hover:from-slate-600 hover:to-gray-700 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-slate-400 hover:border-gray-300 transition-all shadow-lg hover:shadow-slate-500/50 hover:scale-105 font-bold"
+            >
+              💰 Balance
             </button>
           </div>
 
@@ -1279,7 +1378,7 @@ How can I help you today?`,
                   listening 
                     ? "🎤 Listening... Speak clearly" 
                     : isConnected 
-                      ? "Type a message..." 
+                      ? "Ask: 'What's Bitcoin price?' or 'Compare BTC and ETH'..." 
                       : "Connect your wallet to start"
                 }
                 disabled={!isConnected || isChatLoading}

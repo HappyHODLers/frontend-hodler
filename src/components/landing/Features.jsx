@@ -20,8 +20,8 @@ const Features = () => {
         },
         {
             icon: "⚡",
-            title: "Scroll L2 Speed",
-            description: "Execute transfers in <2 seconds with $0.02 gas fees. 100x cheaper than Ethereum mainnet.",
+            title: "Sub-Second Updates",
+            description: "Pyth Network delivers price updates every 400ms with on-chain verification. No delays, no stale data.",
             gradient: "from-indigo-500 to-purple-500",
             shadow: "hover:shadow-indigo-500/50"
         },
@@ -63,7 +63,7 @@ const Features = () => {
                         </span>
                     </h2>
                     <p className="text-sm sm:text-base md:text-lg lg:text-xl text-seasalt max-w-3xl mx-auto">
-                        Powered by Pyth Network oracles and Scroll L2 blockchain for instant, verified crypto prices
+                        Powered by Pyth Network oracles for instant, verified crypto prices from top exchanges
                     </p>
                 </div>
 

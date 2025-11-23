@@ -94,10 +94,10 @@ const Hero = ({ onStartChat }) => {
                         </div>
                         <div className="text-center">
                             <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent mb-1 sm:mb-2">
-                                $0.02
+                                400ms
                             </div>
                             <div className="text-xs sm:text-sm lg:text-base text-seasalt">
-                                Gas on Scroll
+                                Update Speed
                             </div>
                         </div>
                         <div className="text-center">

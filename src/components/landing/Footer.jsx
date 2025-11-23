@@ -10,7 +10,7 @@ const Footer = () => {
     ],
     resources: [
       { name: "Pyth Network Docs", href: "https://docs.pyth.network" },
-      { name: "Scroll Network", href: "https://scroll.io" },
+      { name: "Pyth Network", href: "https://pyth.network" },
       { name: "GitHub", href: "https://github.com/HappyHODLers" },
       { name: "Smart Contracts", href: "#" }
     ],
@@ -94,7 +94,7 @@ const Footer = () => {
             </p>
             <div className="flex flex-wrap gap-2 text-xs">
               <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Pyth Network</span>
-              <span className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full border border-orange-500/30">Scroll L2</span>
+              <span className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full border border-orange-500/30">Real-Time Oracles</span>
               <span className="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full border border-yellow-500/30">AI Chatbot</span>
             </div>
           </div>
@@ -108,8 +108,6 @@ const Footer = () => {
           <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
             <span>Powered by</span>
             <span className="font-semibold text-purple-400">Pyth Network</span>
-            <span>•</span>
-            <span className="font-semibold text-orange-400">Scroll L2</span>
             <span>•</span>
             <span className="font-semibold text-yellow-400">AI</span>
           </div>

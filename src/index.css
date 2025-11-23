@@ -48,6 +48,16 @@ html {
   scrollbar-color: #FB923C rgba(0, 0, 0, 0.2);
 }
 
+/* Hide scrollbar for horizontal shortcuts */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
 /* ===== ANIMACIONES AVANZADAS ===== */
 
 /* Animación de gradiente para el botón */

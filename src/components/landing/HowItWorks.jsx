@@ -3,7 +3,7 @@ const HowItWorks = () => {
     {
       number: "01",
       title: "Connect Your Wallet",
-      description: "Link your wallet (MetaMask, Rainbow, WalletConnect) to Scroll L2. Your keys stay secure with you, always.",
+      description: "Link your wallet (MetaMask, Rainbow, WalletConnect). Your keys stay secure with you, always non-custodial.",
       icon: "🔗",
       color: "from-blue-500 to-cyan-500"
     },
@@ -23,9 +23,9 @@ const HowItWorks = () => {
     },
     {
       number: "04",
-      title: "Execute on Scroll L2",
-      description: "Send transfers with $0.02 gas and <2 second confirmations. 100x cheaper than Ethereum mainnet.",
-      icon: "⚡",
+      title: "Make Informed Decisions",
+      description: "Use accurate, real-time data to track your portfolio, spot trends, and optimize your crypto strategy with confidence.",
+      icon: "💎",
       color: "from-green-500 to-emerald-500"
     }
   ];
@@ -102,7 +102,7 @@ const HowItWorks = () => {
         <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg">
             <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-            <span className="text-white font-medium text-sm sm:text-base">AI + Pyth Network + DefiLlama + Scroll L2 = Maximum Returns</span>
+            <span className="text-white font-medium text-sm sm:text-base">AI + Pyth Network + Real-Time Data = Smarter Crypto Decisions</span>
           </div>
         </div>
       </div>

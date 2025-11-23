@@ -359,7 +359,7 @@ How can I help you today?`,
       if (isConnected && userAddress) {
         try {
           // 1. Verificar si el usuario ya existe
-          const checkResponse = await fetch(`http://localhost:5000/users/wallet/${userAddress}`);
+          const checkResponse = await fetch(`https://clary-backend-ai.onrender.com/users/wallet/${userAddress}`);
           
           if (!checkResponse.ok) {
             // Usuario no existe, registrarlo automáticamente
@@ -368,7 +368,7 @@ How can I help you today?`,
             // Generar un username basado en la wallet (primeros 8 caracteres)
             const username = `user_${userAddress.substring(0, 8)}`;
             
-            const createResponse = await fetch('http://localhost:5000/users', {
+            const createResponse = await fetch('https://clary-backend-ai.onrender.com/users', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -411,7 +411,7 @@ How can I help you today?`,
         setLoadingContacts(true);
         try {
           // Obtener contactos por wallet address
-          const response = await fetch(`http://localhost:5000/users/wallet/${userAddress}/contacts`);
+          const response = await fetch(`https://clary-backend-ai.onrender.com/users/wallet/${userAddress}/contacts`);
           
           if (response.ok) {
             const data = await response.json();
@@ -732,7 +732,7 @@ How can I help you today?`,
 
     try {
       // 1. Obtener el user_id del usuario actual por su wallet
-      const userResponse = await fetch(`http://localhost:5000/users/wallet/${userAddress}`);
+      const userResponse = await fetch(`https://clary-backend-ai.onrender.com/users/wallet/${userAddress}`);
       
       if (!userResponse.ok) {
         throw new Error('Your wallet is not registered. Please reconnect your wallet to register automatically.');
@@ -784,10 +784,10 @@ How can I help you today?`,
         <div className="p-4">
           {/* Logo y título del sidebar */}
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-jet-600">
-            <img src={logoStack} alt="Logo" className="w-10 h-10 rounded-full border-2 border-orange-400 shadow-lg shadow-orange-400/30" />
+            <img src={logoChatBot} alt="Logo" className="w-10 h-10 rounded-full border-2 border-orange-400 shadow-lg shadow-orange-400/30" />
             <div>
-              <h3 className="text-seasalt font-bold text-lg">🦙 LlamaRollup</h3>
-              <p className="text-jet-800 text-xs">AI Financial Agent • DefiLlama + Scroll L2</p>
+              <h3 className="text-seasalt font-bold text-lg">😊 HappyHODLers</h3>
+              <p className="text-jet-800 text-xs">Pyth Network + Scroll L2</p>
             </div>
           </div>
 
@@ -1037,10 +1037,10 @@ How can I help you today?`,
               </svg>
             </button>
             
-            <img src={logoStack} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-orange-400 shadow-md hover:shadow-orange-400/50 transition-shadow" />
+            <img src={logoChatBot} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-orange-400 shadow-md hover:shadow-orange-400/50 transition-shadow" />
             <div>
               <h2 className="text-seasalt font-bold text-sm sm:text-base flex items-center gap-2">
-                <span>🦙 LlamaRollup</span>
+                <span>😊 HappyHODLers</span>
                 {isConnected && <span className="text-green-400 text-xs">●</span>}
               </h2>
               {isConnected && (

@@ -21,24 +21,27 @@ const ComparisonView = ({ data }) => {
   };
 
   const getAssetIcon = (symbol) => {
-    const icons = {
-      BTC: '₿',
-      ETH: 'Ξ',
-      SOL: '◎',
-      USDC: '💵',
-      USDT: '💵',
-      DAI: '◈',
-      AVAX: '🔺',
-      MATIC: '🟣',
-      ARB: '🔵',
-      OP: '🔴',
-      BNB: '💛',
-      ADA: '🔷',
-      DOT: '⚫',
-      LINK: '🔗',
-      UNI: '🦄',
+    // Usar cryptocurrency-icons CDN para iconos oficiales
+    const iconMap = {
+      BTC: 'btc',
+      ETH: 'eth',
+      SOL: 'sol',
+      USDC: 'usdc',
+      USDT: 'usdt',
+      DAI: 'dai',
+      AVAX: 'avax',
+      MATIC: 'matic',
+      ARB: 'arb',
+      OP: 'op',
+      BNB: 'bnb',
+      ADA: 'ada',
+      DOT: 'dot',
+      LINK: 'link',
+      UNI: 'uni',
     };
-    return icons[symbol] || '💰';
+    
+    const iconSlug = iconMap[symbol] || 'generic';
+    return `https://cryptologos.cc/logos/${iconSlug === 'arb' ? 'arbitrum-arb' : iconSlug === 'op' ? 'optimism-ethereum-op' : iconSlug === 'matic' ? 'polygon-matic' : iconSlug === 'sol' ? 'solana-sol' : iconSlug === 'avax' ? 'avalanche-avax' : iconSlug === 'link' ? 'chainlink-link' : iconSlug === 'ada' ? 'cardano-ada' : iconSlug === 'dot' ? 'polkadot-new-dot' : iconSlug}-logo.svg?v=029`;
   };
 
   const getAssetColor = (index) => {
@@ -96,8 +99,16 @@ const ComparisonView = ({ data }) => {
             <div className="flex justify-between items-center">
               {/* Left: Asset Info */}
               <div className="flex items-center gap-4">
-                <div className={`text-4xl bg-gradient-to-br ${getAssetColor(index)} p-3 rounded-xl group-hover:scale-110 transition-transform`}>
-                  {getAssetIcon(asset.symbol)}
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${getAssetColor(index)} p-2.5 sm:p-3 rounded-xl group-hover:scale-110 transition-transform flex items-center justify-center`}>
+                  <img 
+                    src={getAssetIcon(asset.symbol)} 
+                    alt={asset.symbol}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FB923C"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/%3E%3C/svg%3E';
+                    }}
+                  />
                 </div>
                 <div>
                   <div className="font-black text-white text-xl tracking-tight">{asset.symbol}</div>

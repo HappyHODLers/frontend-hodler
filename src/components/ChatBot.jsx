@@ -8,6 +8,7 @@ import { parseEther } from 'viem';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { getSTXTransfers, sendChatMessage, prepareTransfer } from '../services/chatService';
 import { getBalance, getUserContacts, createContact } from '../services/scrollSepoliaService';
+import { priceAlertService, detectPriceAlert } from '../services/priceAlertService';
 import TransactionHistory from './TransactionHistory';
 import PriceCard from './PriceCard';
 import ComparisonView from './ComparisonView';
@@ -49,6 +50,7 @@ Click the buttons below or just type naturally! 🚀`,
   const [loadingContacts, setLoadingContacts] = useState(false);
   const [recentTransactions, setRecentTransactions] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
+  const [activeAlerts, setActiveAlerts] = useState([]); // Alertas de precio activas
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
 
@@ -645,12 +647,55 @@ Click the buttons below or just type naturally! 🚀`,
     e.preventDefault();
     if (!input.trim()) return;
 
+    // Agregar mensaje del usuario
     setMessages(prev => [...prev, {
       id: Date.now(),
       text: input,
       sender: 'user'
     }]);
 
+    // Detectar si es una solicitud de alerta de precio
+    const alertDetection = detectPriceAlert(input);
+    
+    if (alertDetection.detected) {
+      // Crear alerta de precio
+      const alertId = priceAlertService.createAlert(
+        alertDetection.symbol,
+        alertDetection.targetPrice,
+        alertDetection.condition,
+        (alertData) => {
+          // Callback cuando se activa la alerta
+          setMessages(prev => [...prev, {
+            id: Date.now(),
+            text: `🔔 **¡ALERTA ACTIVADA!**\n\n📍 ${alertData.symbol}/USD\n💰 Precio actual: $${alertData.currentPrice.toFixed(2)}\n🎯 Objetivo alcanzado: $${alertData.targetPrice.toFixed(2)}\n📊 Condición: ${alertData.condition === 'above' ? 'Precio superó el objetivo' : 'Precio bajó del objetivo'}\n\n¡Tu alerta ha sido activada con éxito! 🎉`,
+            sender: 'bot',
+            isAlert: true
+          }]);
+        }
+      );
+
+      // Actualizar lista de alertas activas
+      setActiveAlerts(prev => [...prev, {
+        id: alertId,
+        symbol: alertDetection.symbol,
+        targetPrice: alertDetection.targetPrice,
+        condition: alertDetection.condition,
+        createdAt: Date.now()
+      }]);
+
+      // Responder con confirmación
+      setMessages(prev => [...prev, {
+        id: Date.now(),
+        text: `✅ **¡Alerta configurada!**\n\n📍 ${alertDetection.symbol}/USD\n🎯 Objetivo: $${alertDetection.targetPrice.toFixed(2)}\n📊 Condición: ${alertDetection.condition === 'above' ? 'Precio supera' : 'Precio baja de'}\n⏱️ Monitoreando cada 5 segundos con Pyth Network\n\nTe notificaré cuando se alcance el precio objetivo 🔔`,
+        sender: 'bot',
+        isAlertConfirmation: true
+      }]);
+      
+      setInput('');
+      return;
+    }
+
+    // Procesar mensaje normal
     sendMessage(input);
     setInput('');
   };
@@ -812,42 +857,86 @@ Click the buttons below or just type naturally! 🚀`,
                 </div>
               )}
 
-              {/* Spinner de carga */}
-              {isConnected && loadingContacts && (
-                <div className="flex flex-col items-center justify-center py-6">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-kikk-orange"></div>
-                  <p className="text-kikk-gray text-xs mt-2">Loading contacts...</p>
-                </div>
-              )}
-
-              {/* Lista de contactos */}
+              {/* Lista de contactos (compacta para dar espacio a alertas) */}
               {isConnected && !loadingContacts && contacts.length > 0 && (
-                contacts.map(contact => (
-                  <button
-                    key={contact.id}
-                    onClick={() => handleContactSelect(contact)}
-                    className="w-full text-left p-3 rounded-sm bg-kikk-black hover:bg-kikk-gray-dark transition-all duration-200 border border-kikk-gray hover:border-kikk-orange group"
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm group-hover:scale-110 transition-transform">👤</span>
-                      <p className="text-kikk-white font-medium text-sm">{contact.name}</p>
-                    </div>
-                    <p className="text-kikk-gray text-xs font-mono truncate ml-6">{contact.address.substring(0, 20)}...</p>
-                  </button>
-                ))
+                <div className="max-h-32 overflow-y-auto space-y-1">
+                  {contacts.slice(0, 3).map(contact => (
+                    <button
+                      key={contact.id}
+                      onClick={() => handleContactSelect(contact)}
+                      className="w-full text-left p-2 rounded-sm bg-kikk-black hover:bg-kikk-gray-dark transition-all duration-200 border border-kikk-gray hover:border-kikk-orange group text-xs"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs">👤</span>
+                        <p className="text-kikk-white font-medium truncate">{contact.name}</p>
+                      </div>
+                    </button>
+                  ))}
+                  {contacts.length > 3 && (
+                    <p className="text-kikk-gray text-xs text-center py-1">+{contacts.length - 3} more</p>
+                  )}
+                </div>
               )}
+            </div>
+          </div>
 
-              {/* Mensaje cuando no hay contactos */}
-              {isConnected && !loadingContacts && contacts.length === 0 && (
-                <div className="p-4 rounded-sm bg-kikk-black border border-kikk-gray text-center">
-                  <p className="text-2xl mb-2">📭</p>
+          {/* Alertas de Precio */}
+          <div className="mb-6">
+            <div className="flex items-center mb-3">
+              <h4 className="text-kikk-white text-sm font-semibold flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 px-3 py-2 rounded-sm flex-1 uppercase tracking-widest">
+                <span className="text-lg">🔔</span> 
+                <span>Price Alerts</span>
+              </h4>
+            </div>
+            <div className="space-y-2">
+              {activeAlerts.length === 0 ? (
+                <div className="p-3 rounded-sm bg-kikk-black border border-kikk-gray text-center">
+                  <p className="text-2xl mb-1">🔕</p>
                   <p className="text-kikk-gray text-xs">
-                    You don't have contacts yet
+                    No active alerts
                   </p>
-                  <p className="text-kikk-orange text-xs mt-1">
-                    Haz clic en + para agregar
+                  <p className="text-purple-400 text-[10px] mt-1">
+                    Try: "Let me know if Ethereum reaches $2,500."
                   </p>
                 </div>
+              ) : (
+                activeAlerts.map(alert => (
+                  <div
+                    key={alert.id}
+                    className="p-3 rounded-sm bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/30 hover:border-purple-400/50 transition-all"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">🎯</span>
+                        <span className="text-white font-bold text-sm">{alert.symbol}</span>
+                      </div>
+                      <button
+                        onClick={() => {
+                          priceAlertService.removeAlert(alert.id);
+                          setActiveAlerts(prev => prev.filter(a => a.id !== alert.id));
+                        }}
+                        className="text-red-400 hover:text-red-300 text-xs"
+                        title="Eliminar alerta"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <div className="text-[10px] text-gray-300 space-y-0.5">
+                      <div className="flex items-center gap-1">
+                        <span>💰</span>
+                        <span className="text-yellow-400 font-semibold">${alert.targetPrice.toFixed(2)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span>📊</span>
+                        <span>{alert.condition === 'above' ? 'Supera' : 'Baja de'}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+                        <span className="text-green-400">Monitoring...</span>
+                      </div>
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           </div>
@@ -1209,19 +1298,27 @@ Click the buttons below or just type naturally! 🚀`,
                   
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
                     {[
-                      { symbol: 'BTC', name: 'Bitcoin', icon: '₿', color: 'from-orange-400 to-yellow-400' },
-                      { symbol: 'ETH', name: 'Ethereum', icon: 'Ξ', color: 'from-purple-400 to-blue-400' },
-                      { symbol: 'SOL', name: 'Solana', icon: '◎', color: 'from-purple-400 to-pink-400' },
-                      { symbol: 'USDC', name: 'USD Coin', icon: '💵', color: 'from-green-400 to-emerald-400' },
-                      { symbol: 'AVAX', name: 'Avalanche', icon: '🔺', color: 'from-red-400 to-pink-400' },
+                      { symbol: 'BTC', name: 'Bitcoin', iconUrl: 'https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=029', color: 'from-orange-400 to-yellow-400' },
+                      { symbol: 'ETH', name: 'Ethereum', iconUrl: 'https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=029', color: 'from-purple-400 to-blue-400' },
+                      { symbol: 'SOL', name: 'Solana', iconUrl: 'https://cryptologos.cc/logos/solana-sol-logo.svg?v=029', color: 'from-purple-400 to-pink-400' },
+                      { symbol: 'USDC', name: 'USD Coin', iconUrl: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.svg?v=029', color: 'from-green-400 to-emerald-400' },
+                      { symbol: 'AVAX', name: 'Avalanche', iconUrl: 'https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=029', color: 'from-red-400 to-pink-400' },
                     ].map((asset) => (
                       <button
                         key={asset.symbol}
                         onClick={() => handleShortcut(`What's ${asset.name} price?`)}
                         className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border-2 border-gray-700 hover:border-orange-400 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-400/20"
                       >
-                        <div className={`text-3xl mb-2 bg-gradient-to-br ${asset.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform`}>
-                          {asset.icon}
+                        <div className={`w-12 h-12 mx-auto mb-2 bg-gradient-to-br ${asset.color} p-2 rounded-lg group-hover:scale-110 transition-transform flex items-center justify-center`}>
+                          <img 
+                            src={asset.iconUrl} 
+                            alt={asset.name}
+                            className="w-full h-full object-contain"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FB923C"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/%3E%3C/svg%3E';
+                            }}
+                          />
                         </div>
                         <div className="text-white font-bold text-sm mb-1">{asset.symbol}</div>
                         <div className="text-gray-400 text-xs">{asset.name}</div>
@@ -1229,7 +1326,7 @@ Click the buttons below or just type naturally! 🚀`,
                     ))}
                   </div>
                   
-                  <div className="mt-6 text-center">
+                  <div className="mt-6 text-center space-y-3">
                     <button
                       onClick={() => handleShortcut('Compare BTC, ETH, SOL, USDC, and AVAX')}
                       className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 text-purple-300 px-6 py-3 rounded-full border border-purple-400/40 hover:border-purple-400 transition-all shadow-lg hover:shadow-purple-400/30"
@@ -1238,6 +1335,16 @@ Click the buttons below or just type naturally! 🚀`,
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                       <span className="font-semibold">Compare All 5 Assets</span>
+                    </button>
+                    
+                    <button
+                      onClick={() => handleShortcut('Avísame si Ethereum llega a $2500')}
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 hover:from-yellow-500/30 hover:to-orange-500/30 text-yellow-300 px-6 py-3 rounded-full border border-yellow-400/40 hover:border-yellow-400 transition-all shadow-lg hover:shadow-yellow-400/30"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                      </svg>
+                      <span className="font-semibold">Set Price Alert</span>
                     </button>
                   </div>
                 </div>
@@ -1253,71 +1360,71 @@ Click the buttons below or just type naturally! 🚀`,
             {/* Major Cryptos */}
             <button
               onClick={() => handleShortcut('What\'s Bitcoin price?')}
-              className="px-4 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-orange-400 hover:border-yellow-300 transition-all shadow-lg hover:shadow-orange-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              ₿ Bitcoin
+              Bitcoin
             </button>
             
             <button
               onClick={() => handleShortcut('What\'s Ethereum price?')}
-              className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-purple-400 hover:border-blue-300 transition-all shadow-lg hover:shadow-purple-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              Ξ Ethereum
+              Ethereum
             </button>
 
             <button
               onClick={() => handleShortcut('What\'s Solana price?')}
-              className="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-pink-400 hover:border-purple-300 transition-all shadow-lg hover:shadow-pink-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              ◎ Solana
+              Solana
             </button>
             
             {/* Stablecoins */}
             <button
               onClick={() => handleShortcut('Compare USDC, USDT, and DAI')}
-              className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-green-400 hover:border-emerald-300 transition-all shadow-lg hover:shadow-green-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              💵 Stablecoins
+              Stablecoins
             </button>
 
             {/* L2 Tokens */}
             <button
               onClick={() => handleShortcut('Show me ARB, OP, and MATIC prices')}
-              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-blue-400 hover:border-cyan-300 transition-all shadow-lg hover:shadow-blue-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              🔵 L2 Tokens
+              L2 Tokens
             </button>
             
             {/* DeFi Tokens */}
             <button
               onClick={() => handleShortcut('Compare LINK and UNI prices')}
-              className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-indigo-400 hover:border-violet-300 transition-all shadow-lg hover:shadow-indigo-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              🦄 DeFi
+              DeFi
             </button>
 
             {/* Alt L1s */}
             <button
               onClick={() => handleShortcut('Show me AVAX, ADA, DOT, and BNB')}
-              className="px-4 py-2 bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-red-400 hover:border-rose-300 transition-all shadow-lg hover:shadow-red-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              🔺 Alt L1s
+              Alt L1s
             </button>
 
             {/* Top 3 Comparison */}
             <button
               onClick={() => handleShortcut('Compare BTC, ETH, and SOL')}
-              className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-yellow-400 hover:border-amber-300 transition-all shadow-lg hover:shadow-yellow-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              📊 Top 3
+              Top 3
             </button>
 
             {/* Balance Check */}
             <button
               onClick={handleBalanceCheck}
-              className="px-4 py-2 bg-gradient-to-r from-slate-500 to-gray-600 hover:from-slate-600 hover:to-gray-700 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-slate-400 hover:border-gray-300 transition-all shadow-lg hover:shadow-slate-500/50 hover:scale-105 font-bold"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full text-xs sm:text-sm whitespace-nowrap border-2 border-gray-600 hover:border-gray-500 transition-all shadow-lg hover:shadow-gray-500/50 hover:scale-105 font-bold"
             >
-              💰 Balance
+              Balance
             </button>
           </div>
 

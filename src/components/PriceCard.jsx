@@ -37,24 +37,27 @@ const PriceCard = ({ data }) => {
   };
 
   const getAssetIcon = (symbol) => {
-    const icons = {
-      BTC: '₿',
-      ETH: 'Ξ',
-      SOL: '◎',
-      USDC: '💵',
-      USDT: '💵',
-      DAI: '◈',
-      AVAX: '🔺',
-      MATIC: '🟣',
-      ARB: '🔵',
-      OP: '🔴',
-      BNB: '💛',
-      ADA: '🔷',
-      DOT: '⚫',
-      LINK: '🔗',
-      UNI: '🦄',
+    // Usar cryptocurrency-icons CDN para iconos oficiales
+    const iconMap = {
+      BTC: 'btc',
+      ETH: 'eth',
+      SOL: 'sol',
+      USDC: 'usdc',
+      USDT: 'usdt',
+      DAI: 'dai',
+      AVAX: 'avax',
+      MATIC: 'matic',
+      ARB: 'arb',
+      OP: 'op',
+      BNB: 'bnb',
+      ADA: 'ada',
+      DOT: 'dot',
+      LINK: 'link',
+      UNI: 'uni',
     };
-    return icons[symbol] || '💰';
+    
+    const iconSlug = iconMap[symbol] || 'generic';
+    return `https://cryptologos.cc/logos/${iconSlug === 'arb' ? 'arbitrum-arb' : iconSlug === 'op' ? 'optimism-ethereum-op' : iconSlug === 'matic' ? 'polygon-matic' : iconSlug === 'sol' ? 'solana-sol' : iconSlug === 'avax' ? 'avalanche-avax' : iconSlug === 'link' ? 'chainlink-link' : iconSlug === 'ada' ? 'cardano-ada' : iconSlug === 'dot' ? 'polkadot-new-dot' : iconSlug}-logo.svg?v=029`;
   };
 
   return (
@@ -77,7 +80,17 @@ const PriceCard = ({ data }) => {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6 mb-4">
         {/* Left: Asset Info + Icon */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <div className="text-4xl sm:text-5xl lg:text-6xl bg-gradient-to-br from-orange-400 to-pink-400 p-2 sm:p-3 rounded-xl flex-shrink-0">{getAssetIcon(data.symbol)}</div>
+          <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-gray-700 to-gray-800 p-2 sm:p-2.5 lg:p-3 rounded-xl flex-shrink-0 flex items-center justify-center">
+            <img 
+              src={getAssetIcon(data.symbol)} 
+              alt={data.symbol}
+              className="w-full h-full object-contain"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FB923C"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/%3E%3C/svg%3E';
+              }}
+            />
+          </div>
           <div>
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">{data.symbol}</h3>
             <p className="text-xs sm:text-sm text-gray-400">vs USD</p>

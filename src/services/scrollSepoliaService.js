@@ -2,7 +2,7 @@
  * Servicio para interactuar con el backend de Scroll Sepolia
  */
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://clary-backend-ai.onrender.com';
 
 /**
  * Enviar un mensaje al chatbot de DeepSeek

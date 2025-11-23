@@ -1,277 +1,375 @@
-# 😊 HappyHODLers - Transactional Chatbot
+# 😊 HappyHODLers - AI-Powered Crypto Chatbot
 
-Transactional Chatbot powered by **Pyth Network** real-time prices. Trade, check prices, and get DeFi insights with simple conversations on **Scroll L2**.
+An intelligent conversational chatbot powered by **Pyth Network** real-time price feeds. Check crypto prices, set price alerts, and manage your DeFi portfolio through natural language conversations.
 
 ---
 
-## ✨ Características Principales
+## ✨ Key Features
 
-### 💬 **Transactional Chatbot**
-Chat naturally to trade, check prices, and manage your crypto:
-- "What's Bitcoin price?" → Get real-time BTC price
-- "Compare BTC and ETH" → Side-by-side comparison
-- "Send 0.5 ETH to Alice" → Execute transfers
+### 💬 **Conversational AI Chatbot**
+Chat naturally to get real-time crypto insights:
+- "What's Bitcoin price?" → Get real-time BTC price with confidence intervals
+- "Compare BTC and ETH" → Side-by-side price comparison
+- "Alert me when ETH reaches $2500" → Set automated price alerts
 
-### 📊 **Pyth Network Integration** ⚡ NUEVO
+### 📊 **Pyth Network Integration**
 Real-time verified prices from 15+ cryptocurrencies:
 - **15 assets**: BTC, ETH, SOL, USDC, USDT, DAI, AVAX, MATIC, ARB, OP, BNB, ADA, DOT, LINK, UNI
-- **15+ exchanges**: Binance, OKX, Coinbase, Kraken, Huobi, KuCoin, etc.
-- **400ms updates**: Ultra-fast price feeds from Pyth Network
-- **±0.01% precision**: Confidence intervals on every price
+- **15+ exchanges**: Binance, OKX, Coinbase, Kraken, and more
+- **400ms updates**: Ultra-fast price feeds directly from Pyth Network
+- **High precision**: Confidence intervals on every price point
 
-### 🔔 **Smart Price Queries**
+### 🔔 **Price Alert System**
+Automated monitoring with natural language:
+- "Alert me if Bitcoin reaches $100k"
+- "Notify me when ETH falls below $2000"
+- Live monitoring every 5 seconds
+- Automatic notifications when targets are reached
+- Spanish and English support
+
+### 🎯 **Smart Price Queries**
 Natural language price detection:
 - Individual queries: "What's Bitcoin price?"
-- Comparisons: "Compare BTC, ETH, and SOL"
-- Stablecoins: "Show me USDC and USDT"
-- Spanish support: "Cuánto está Bitcoin?"
+- Multi-asset comparisons: "Compare BTC, ETH, and SOL"
+- Stablecoin tracking: "Show me USDC and USDT"
+- Bilingual support: English and Spanish
 
-### ⚡ **Scroll L2 Blockchain**
-Ultra-fast and cheap transactions:
-- **~$0.02 gas fees** (vs $50+ on Ethereum mainnet)
-- **<2 second confirmations**
-- **EVM-compatible** (works with MetaMask, Rainbow, etc.)
-- **Production-ready** on Scroll Sepolia testnet
-
-### 🤖 **AI-Powered Detection**
-Smart pattern recognition:
-- Detects price queries automatically
-- Extracts symbols from messages
-- Normalizes asset names (bitcoin → BTC)
-- Routes to correct service (Pyth vs backend)
+### 🤖 **AI-Powered Pattern Recognition**
+Intelligent message parsing:
+- Automatically detects price queries
+- Extracts crypto symbols from natural language
+- Normalizes asset names (bitcoin → BTC, ethereum → ETH)
+- Routes queries to appropriate data sources
 
 ### 🔐 **Non-Custodial & Secure**
-You always maintain full control:
-- Connect with any Web3 wallet
-- Sign transactions on your device
+Full user control and transparency:
+- Connect with any Web3 wallet (MetaMask, Rainbow, Coinbase Wallet)
 - No private keys stored
 - Open source codebase
+- Client-side transaction signing
 
 ---
 
-## 🚀 Inicio Rápido
+## 🚀 Quick Start
 
-### ⚡ **Quick Start (3 pasos)**
+### ⚡ **Setup (3 steps)**
 
-1. **Instalar dependencias**
+1. **Install dependencies**
 ```bash
 npm install
 ```
 
-2. **Iniciar servidor**
+2. **Start development server**
 ```bash
 npm run dev
 ```
 
-3. **Abrir navegador**
+3. **Open in browser**
 ```
 http://localhost:5173
 ```
 
-🎉 **¡Listo!** Conecta tu wallet y prueba:
+🎉 **You're ready!** Connect your wallet and try:
 ```
 "What's Bitcoin price?"
 "Compare BTC and ETH"
-"Price of SOL"
+"Alert me when SOL reaches $150"
 ```
 
-### 📋 **Prerrequisitos**
-- **Node.js** 16+ ([descargar](https://nodejs.org/))
-- **Wallet compatible**: MetaMask, Rainbow, Coinbase Wallet, etc.
-- **Fondos en Scroll L2** (opcional para transferencias)
-- **Navegador moderno**: Chrome, Firefox, Brave, etc.
+### 📋 **Prerequisites**
+- **Node.js** 16+ ([download](https://nodejs.org/))
+- **Web3 Wallet**: MetaMask, Rainbow, Coinbase Wallet, or similar
+- **Modern browser**: Chrome, Firefox, Brave, or Edge
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 src/
-├── components/          # Componentes UI
-│   ├── ChatBot.jsx      # Chatbot principal con Pyth integration
-│   ├── PriceCard.jsx    # ⚡ NUEVO: Card de precio individual
-│   ├── ComparisonView.jsx  # ⚡ NUEVO: Comparación de assets
-│   ├── TransactionHistory.jsx
+├── components/          # UI Components
+│   ├── ChatBot.jsx      # Main chatbot with Pyth integration & alerts
+│   ├── PriceCard.jsx    # Individual asset price display
+│   ├── ComparisonView.jsx  # Multi-asset comparison view
+│   ├── TransactionHistory.jsx  # Transaction history viewer
 │   ├── landing/         # Landing page components
-│   └── 3D/              # StarBackground 3D
-├── services/            # APIs y servicios
-│   ├── pythService.js   # ⚡ NUEVO: Pyth Network integration
-│   ├── chatService.js   # Backend Flask + price detection
-│   └── scrollSepoliaService.js  # Scroll L2 API
+│   └── 3D/              # 3D StarBackground
+├── services/            # APIs and Services
+│   ├── pythService.js   # Pyth Network price feeds
+│   ├── priceAlertService.js  # Price alert monitoring system
+│   ├── chatService.js   # Backend integration & query detection
+│   └── scrollSepoliaService.js  # Blockchain API
 ├── pages/
-│   └── LandingPage.jsx  # Página principal
+│   └── LandingPage.jsx  # Main landing page
 ├── hooks/
-│   └── useStacksContract.js
+│   └── useStacksContract.js  # Custom blockchain hooks
 ├── config/
-│   ├── wagmi.js         # Configuración Wagmi (Rainbow)
-│   └── contract.js      # Smart contracts
-└── assets/              # Imágenes y logos
+│   ├── wagmi.js         # Wagmi configuration (Rainbow)
+│   └── contract.js      # Smart contract addresses
+└── assets/              # Images and logos
 ```
 
 ---
 
-## 🛠️ Scripts Disponibles
+## 🛠️ Available Scripts
 
 ```bash
-# Desarrollo (hot reload)
+# Development (hot reload)
 npm run dev
 
-# Build para producción
+# Production build
 npm run build
 
-# Preview de build
+# Preview production build
 npm run preview
 
-# Linting
+# Code linting
 npm run lint
 ```
 
 ---
 
-## 💡 Guía de Uso
+## 💡 Usage Guide
 
-### **1. Consultar Precios (Pyth Network)**
+### **1. Price Queries (Pyth Network)**
 
-#### Precio Individual
+#### Individual Price
 ```
-Usuario: "What's Bitcoin price?"
+User: "What's Bitcoin price?"
 
 Bot: 📊 Here's the current price for BTC
-     [PriceCard mostrando:]
-     💰 $45,123.50
+     [PriceCard displaying:]
+     💰 $86,097.11
      ± Confidence: $2.35
-     ⏰ Updated: 3 seconds ago
-     🐍 Pyth Network
+     ⏰ Updated: 2 seconds ago
+     🐍 Powered by Pyth Network
 ```
 
-#### Comparación Multiple
+#### Multi-Asset Comparison
 ```
-Usuario: "Compare BTC and ETH"
+User: "Compare BTC and ETH"
 
 Bot: 📊 Here's the comparison for BTC, ETH
-     [ComparisonView con 2 tarjetas lado a lado]
+     [ComparisonView with 2 cards side-by-side]
 ```
 
-#### Stablecoins
+#### Stablecoin Tracking
 ```
-Usuario: "Show me USDC and USDT"
+User: "Show me USDC and USDT"
 
 Bot: 📊 Here's the comparison for USDC, USDT
-     [Ambos ~$1.00 con confidence < $0.001]
+     [Both ~$1.00 with confidence < $0.001]
 ```
 
-### **2. Transferencias en Scroll L2**
+### **2. Price Alerts**
 
+#### Set Alert (English)
 ```
-Usuario: "Send 0.5 ETH to 0x123...abc"
+User: "Alert me when Bitcoin reaches $100000"
 
-Bot: 🔔 Confirmar Transferencia
-     📤 Destinatario: 0x123...abc
-     💰 Cantidad: 0.5 ETH
-     
-     [Botón: Confirmar Transferencia]
+Bot: ✅ Alert configured!
+     📍 BTC/USD
+     🎯 Target: $100,000.00
+     📊 Condition: Price exceeds
+     ⏱️ Monitoring every 5 seconds with Pyth Network
 ```
 
-### **3. Historial de Transacciones**
-
+#### Set Alert (Spanish)
 ```
-Usuario: [Click en icono de historial]
+User: "Avísame si Ethereum llega a $2500"
 
-Bot: [Modal mostrando últimas 10 transacciones]
-     • Send 0.1 ETH to Alice - 2 mins ago ✅
-     • Receive 0.5 ETH from Bob - 1 hour ago ✅
+Bot: ✅ ¡Alerta configurada!
+     📍 ETH/USD
+     🎯 Objetivo: $2,500.00
+     📊 Condición: Precio supera
+     ⏱️ Monitoreando cada 5 segundos
 ```
+
+#### Alert Trigger Notification
+```
+Bot: 🔔 ALERT TRIGGERED!
+     📍 ETH/USD
+     💰 Current price: $2,502.50
+     🎯 Target reached: $2,500.00
+```
+
+### **3. Quick Shortcuts**
+
+Available preset shortcuts in the chat:
+- **Bitcoin** - Get BTC price
+- **Ethereum** - Get ETH price
+- **Solana** - Get SOL price
+- **Stablecoins** - Compare USDC, USDT, DAI
+- **L2 Tokens** - View ARB, OP, MATIC
+- **DeFi** - Compare LINK and UNI
+- **Alt L1s** - View AVAX, ADA, DOT, BNB
+- **Top 3** - Compare BTC, ETH, SOL
+- **Balance** - Check wallet balance
 
 ---
 
-## 📊 Activos Soportados (Pyth Network)
+## 📊 Supported Assets (Pyth Network)
 
-| Símbolo | Nombre Completo | Categoría | Confidence Avg |
+| Symbol | Full Name | Category | Avg Confidence |
 |---------|----------------|-----------|----------------|
-| BTC | Bitcoin | Crypto | ±$2.35 |
-| ETH | Ethereum | Crypto | ±$1.20 |
-| SOL | Solana | Crypto | ±$0.05 |
+| BTC | Bitcoin | Cryptocurrency | ±$2.35 |
+| ETH | Ethereum | Cryptocurrency | ±$1.20 |
+| SOL | Solana | Cryptocurrency | ±$0.05 |
 | USDC | USD Coin | Stablecoin | ±$0.0001 |
 | USDT | Tether | Stablecoin | ±$0.0001 |
 | DAI | Dai Stablecoin | Stablecoin | ±$0.0002 |
-| AVAX | Avalanche | L1 | ±$0.15 |
-| MATIC | Polygon | L2 | ±$0.005 |
-| ARB | Arbitrum | L2 | ±$0.01 |
-| OP | Optimism | L2 | ±$0.02 |
-| BNB | Binance Coin | Exchange | ±$0.50 |
-| ADA | Cardano | L1 | ±$0.003 |
-| DOT | Polkadot | L0 | ±$0.01 |
+| AVAX | Avalanche | Layer 1 | ±$0.15 |
+| MATIC | Polygon | Layer 2 | ±$0.005 |
+| ARB | Arbitrum | Layer 2 | ±$0.01 |
+| OP | Optimism | Layer 2 | ±$0.02 |
+| BNB | Binance Coin | Exchange Token | ±$0.50 |
+| ADA | Cardano | Layer 1 | ±$0.003 |
+| DOT | Polkadot | Layer 0 | ±$0.01 |
 | LINK | Chainlink | Oracle | ±$0.02 |
-| UNI | Uniswap | DEX | ±$0.01 |
+| UNI | Uniswap | DEX Token | ±$0.01 |
 
-**Total: 15 activos** | **Fuentes: 15+ exchanges** | **Actualización: Cada 400ms**
+**Total: 15 assets** | **Sources: 15+ exchanges** | **Update: Every 400ms**
 
 ---
 
-## 🏗️ Arquitectura Técnica
+## 🏗️ Technical Architecture
 
 ### **Frontend Stack**
-- **React 18** + **Vite 7** - UI framework con hot reload
+- **React 18** + **Vite 7** - Modern UI framework with hot reload
 - **Tailwind CSS** - Utility-first styling
 - **Wagmi** + **RainbowKit** - Web3 wallet connections
-- **Pyth Network SDK** - Real-time price feeds
-- **Ethers.js v5** - Blockchain interactions
+- **Pyth Network Hermes API** - Real-time price feeds
+- **React Hooks** - State management and lifecycle
 
-### **Blockchain Stack**
-- **Scroll L2 Sepolia** - Testnet para transacciones
-- **Pyth Network** - Oracle de precios verificados
-- **EVM-compatible** - Smart contracts Solidity
+### **Price Alert System**
+- **Monitoring Interval**: 5 seconds
+- **Pattern Detection**: Natural language processing (English/Spanish)
+- **Alert Triggers**: Above/below price conditions
+- **Auto-cleanup**: Alerts removed after triggering
+- **Live Status**: Sidebar panel with active monitoring indicators
 
-### **Backend API**
-- **Flask** - Python backend en `clary-backend-ai.onrender.com`
-- **PostgreSQL** - Database para contactos/historial
-- **Render.com** - Cloud hosting
+### **Backend Stack**
+- **Flask API** - Python backend at `clary-backend-ai.onrender.com`
+- **PostgreSQL** - User data and contacts storage
+- **Render.com** - Cloud hosting platform
+
+### **Data Sources**
+- **Pyth Network** - Decentralized oracle for verified prices
+- **15+ Exchanges** - Binance, OKX, Coinbase, Kraken, and more
+- **Hermes REST API** - Fast and reliable price endpoints
 
 ---
 
 ## 🔮 Roadmap
 
-### **Q1 2025** ✅ COMPLETADO
-- [x] Integración Pyth Network
-- [x] PriceCard component
+### **Phase 1** ✅ COMPLETED
+- [x] Pyth Network integration
+- [x] PriceCard component with official crypto logos
 - [x] ComparisonView component
-- [x] Detección automática de consultas
-- [x] 15 activos soportados
-- [x] Cache de precios (5 segundos)
+- [x] Automatic query detection
+- [x] 15 supported assets
+- [x] Price caching (5 seconds)
+- [x] Price Alert System
+- [x] Natural language alert detection
+- [x] Bilingual support (English/Spanish)
 
-### **Q2 2025** 🚧 EN PROGRESO
-- [ ] **Sistema de Alertas**: "Notify me if ETH reaches $3000"
-- [ ] **Gráficos históricos**: Tendencias de precios con Chart.js
-- [ ] **Portfolio tracking**: Valor total de wallet en USD
-- [ ] **Wallet propia**: No dependencia de MetaMask
-- [ ] **WhatsApp API**: Consultas por WhatsApp
+### **Phase 2** 🚧 IN PROGRESS
+- [ ] **Historical charts**: Price trends with Chart.js
+- [ ] **Portfolio tracking**: Total wallet value in USD
+- [ ] **Alert history**: View triggered alerts
+- [ ] **Advanced patterns**: More natural language variations
+- [ ] **Performance optimization**: Smart polling intervals
 
-### **Q3 2025** 📅 PLANEADO
-- [ ] **Price predictions**: ML models con datos Pyth
-- [ ] **Multi-chain**: Soporte para Arbitrum, Optimism, Base
-- [ ] **DEX integration**: Swaps directos desde el chat
-- [ ] **Telegram bot**: Expansión a Telegram
+### **Phase 3** 📅 PLANNED
+- [ ] **Price predictions**: ML models with Pyth data
+- [ ] **Multi-chain support**: Arbitrum, Optimism, Base
+- [ ] **DEX integration**: Direct swaps from chat
+- [ ] **Mobile app**: React Native version
+- [ ] **Telegram bot**: Expand to Telegram platform
 
 ---
 
-## 📚 Documentación Adicional
+## 🧪 Testing
 
-- **[Quick Start Guide](./QUICK_START.md)** - Guía rápida de inicio
-- **[Pyth Integration Guide](./PYTH_INTEGRATION_GUIDE.md)** - Detalles técnicos de Pyth
-- **[Test Examples](./PYTH_TEST_EXAMPLES.md)** - 15+ casos de prueba
-- **[Visual Examples](./PYTH_VISUAL_EXAMPLES.md)** - Mockups de UI
-- **[Implementation Summary](./PYTH_IMPLEMENTATION_SUMMARY.md)** - Resumen completo
+### **Manual Test Cases**
+
+Price Queries:
+```
+✓ "What's Bitcoin price?"
+✓ "Show me ETH"
+✓ "Price of Solana"
+✓ "Compare BTC and ETH"
+✓ "Show me all stablecoins"
+```
+
+Price Alerts:
+```
+✓ "Alert me when BTC reaches $100000"
+✓ "Avísame si ETH llega a $2500"
+✓ "Notify me if SOL falls below $100"
+✓ Click "Set Price Alert" shortcut
+✓ Delete active alert from sidebar
+```
+
+Shortcuts:
+```
+✓ Click "Bitcoin" → BTC price
+✓ Click "Ethereum" → ETH price
+✓ Click "Stablecoins" → USDC, USDT, DAI comparison
+✓ Click "Top 3" → BTC, ETH, SOL comparison
+✓ Click "Balance" → Wallet balance
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the MIT License.
 
 ---
 
 ## 🏆 Built For
 
-**ETH Global DevConnect Hackathon**  
+**ETH Global Hackathon**  
 **Track:** DeFi + Oracle Integration  
-**Sponsor:** Pyth Network + Scroll L2
-- **DefiLlama Track** - Uso creativo de yields API
-- **Scroll Track** - Smart contracts desplegados en L2
+**Sponsors:** Pyth Network
+
+**Technologies:**
+- Pyth Network - Real-time price oracle
+- React + Vite - Modern web framework
+- Tailwind CSS - Responsive styling
+- Wagmi - Web3 wallet integration
 
 ---
 
-Desarrollado con 🦙 y ❤️ para democratizar DeFi
+## 👥 Team
+
+**HappyHODLers**
+- Building the future of conversational DeFi
+- Making crypto accessible through natural language
+- Powered by decentralized oracles
+
+---
+
+## 🔗 Links
+
+- **Live Demo**: [Coming Soon]
+- **Backend API**: https://clary-backend-ai.onrender.com
+- **Pyth Network**: https://pyth.network
+- **Documentation**: See `/docs` folder
+
+---
+
+Built with 🦙 and ❤️ to democratize DeFi access

@@ -5,46 +5,46 @@ const Features = () => {
 
     const features = [
         {
-            icon: "🤖",
-            title: "Financial AI",
-            description: "Intelligent agent that analyzes +10,000 liquidity pools in real-time using DefiLlama API.",
-            gradient: "from-blue-500 to-cyan-500",
-            shadow: "hover:shadow-blue-500/50"
-        },
-        {
             icon: "📊",
             title: "Pyth Network Prices",
-            description: "Real-time price feeds from 500+ assets verified by Binance, OKX, and Coinbase. Ask prices in natural language!",
+            description: "Real-time price feeds from 15+ cryptocurrencies verified by Binance, OKX, Coinbase, and Kraken. Updated every 400ms.",
             gradient: "from-purple-500 to-pink-500",
             shadow: "hover:shadow-purple-500/50"
         },
         {
-            icon: "💰",
-            title: "Best Yields",
-            description: "Automatically find the highest returns based on your risk profile and preferences.",
-            gradient: "from-green-500 to-emerald-500",
-            shadow: "hover:shadow-green-500/50"
-        },
-        {
-            icon: "⚡",
-            title: "Scroll L2",
-            description: "Ultra-fast and cheap transactions. $0.02 gas vs $15 on Ethereum mainnet.",
-            gradient: "from-indigo-500 to-purple-500",
-            shadow: "hover:shadow-indigo-500/50"
-        },
-        {
             icon: "💬",
-            title: "Natural Chat",
-            description: "Ask 'What's Bitcoin price?' or 'Compare BTC, ETH and SOL' - the agent understands and responds with verified data.",
+            title: "Natural Language",
+            description: "Ask 'What's Bitcoin price?' or 'Compare BTC and ETH' - the AI understands and responds with verified Pyth data.",
             gradient: "from-orange-500 to-red-500",
             shadow: "hover:shadow-orange-500/50"
         },
         {
-            icon: "🔔",
-            title: "Smart Alerts",
-            description: "Set price alerts in seconds: 'Notify me if ETH reaches $3,000'. Monitored with Pyth's real-time feeds.",
+            icon: "⚡",
+            title: "Scroll L2 Speed",
+            description: "Execute transfers in <2 seconds with $0.02 gas fees. 100x cheaper than Ethereum mainnet.",
+            gradient: "from-indigo-500 to-purple-500",
+            shadow: "hover:shadow-indigo-500/50"
+        },
+        {
+            icon: "💰",
+            title: "Multi-Asset Support",
+            description: "Track BTC, ETH, SOL, stablecoins (USDC, USDT, DAI), and L2 tokens (ARB, OP, MATIC) - 15 assets total.",
+            gradient: "from-green-500 to-emerald-500",
+            shadow: "hover:shadow-green-500/50"
+        },
+        {
+            icon: "🎯",
+            title: "Price Comparison",
+            description: "Compare up to 5 assets side-by-side with real-time confidence intervals. Perfect for making informed decisions.",
             gradient: "from-yellow-500 to-orange-500",
             shadow: "hover:shadow-yellow-500/50"
+        },
+        {
+            icon: "🔐",
+            title: "Non-Custodial",
+            description: "Connect any Web3 wallet (MetaMask, Rainbow, WalletConnect). Your keys, your crypto, always.",
+            gradient: "from-blue-500 to-cyan-500",
+            shadow: "hover:shadow-blue-500/50"
         }
     ];
 
@@ -63,7 +63,7 @@ const Features = () => {
                         </span>
                     </h2>
                     <p className="text-sm sm:text-base md:text-lg lg:text-xl text-seasalt max-w-3xl mx-auto">
-                        We combine AI, Pyth Network verified prices, DefiLlama pool data, and Scroll L2 speed
+                        Powered by Pyth Network oracles and Scroll L2 blockchain for instant, verified crypto prices
                     </p>
                 </div>
 

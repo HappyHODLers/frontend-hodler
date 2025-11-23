@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import logoStack from '../../assets/logo_stack.png';
+import logoCuadrado from '../../assets/logo cuadrado.png';
 
 const Hero = ({ onStartChat }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -27,15 +27,15 @@ const Hero = ({ onStartChat }) => {
                     <div className="mb-6 sm:mb-8 md:mb-10 flex justify-center">
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-                        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400 flex items-center justify-center shadow-2xl shadow-orange-400/40 border-4 border-white/20">
-                          <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl">😊</span>
+                        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400 flex items-center justify-center shadow-2xl shadow-orange-400/40 border-4 border-white/20 overflow-hidden">
+                          <img src={logoCuadrado} alt="HappyHODLers Logo" className="w-full h-full object-cover" />
                         </div>
                       </div>
                     </div>
 
                     {/* Main Heading with Gradient */}
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 sm:mb-6 leading-tight">
-                        <span className="block text-kikk-white mb-1 sm:mb-2">😊 <span className=" bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">HappyHODLers</span></span>
+                        <span className="block text-kikk-white mb-1 sm:mb-2"><span className=" bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">HappyHODLers</span></span>
                         
                     </h1>
 

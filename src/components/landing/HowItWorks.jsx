@@ -2,29 +2,29 @@ const HowItWorks = () => {
   const steps = [
     {
       number: "01",
-      title: "Conecta tu Wallet",
-      description: "Vincula tu wallet (MetaMask, Rainbow, etc.) a Scroll L2. Tus claves permanecen seguras contigo.",
+      title: "Connect Your Wallet",
+      description: "Link your wallet (MetaMask, Rainbow, WalletConnect) to Scroll L2. Your keys stay secure with you, always.",
       icon: "🔗",
       color: "from-blue-500 to-cyan-500"
     },
     {
       number: "02",
-      title: "Pregunta en Lenguaje Natural",
-      description: "Di: 'What's Bitcoin price?' o 'Find best yield for 1000 USDC'. El agente entiende y consulta Pyth Network + DefiLlama.",
+      title: "Ask in Natural Language",
+      description: "Say: 'What's Bitcoin price?' or 'Compare BTC and ETH'. The AI understands and queries Pyth Network instantly.",
       icon: "💬",
       color: "from-purple-500 to-pink-500"
     },
     {
       number: "03",
-      title: "IA Analiza con Pyth + DefiLlama",
-      description: "El agente obtiene precios verificados de Pyth Network y analiza +10,000 pools en DefiLlama para recomendarte la mejor opción.",
-      icon: "🧠",
+      title: "Get Verified Prices",
+      description: "Pyth Network delivers real-time prices from 15+ exchanges (Binance, OKX, Coinbase). Updated every 400ms with confidence intervals.",
+      icon: "📊",
       color: "from-indigo-500 to-blue-500"
     },
     {
       number: "04",
-      title: "Ejecuta en Scroll L2",
-      description: "Confirma la transacción y deposita en el pool recomendado. Gas ultra-bajo (~$0.02) y confirmación instantánea.",
+      title: "Execute on Scroll L2",
+      description: "Send transfers with $0.02 gas and <2 second confirmations. 100x cheaper than Ethereum mainnet.",
       icon: "⚡",
       color: "from-green-500 to-emerald-500"
     }

@@ -12,8 +12,7 @@ import { getBalance, getUserContacts, createContact } from '../services/scrollSe
 import TransactionHistory from './TransactionHistory';
 import PriceCard from './PriceCard';
 import ComparisonView from './ComparisonView';
-import logoStack from '../assets/logo_stack.png';
-import logoChatBot from '../assets/logoChatBot.png';
+import logoChatBot from '../assets/logo cuadrado.png';
 
 const ChatBot = () => {
   const [input, setInput] = useState('');

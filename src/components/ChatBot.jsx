@@ -4,7 +4,7 @@
  * y transacciones en Scroll L2
  */
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { useAccount, useDisconnect, useBalance, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
+import { useAccount, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 import { parseEther } from 'viem';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { getSTXTransfers, sendChatMessage, prepareTransfer } from '../services/chatService';
@@ -13,6 +13,7 @@ import TransactionHistory from './TransactionHistory';
 import PriceCard from './PriceCard';
 import ComparisonView from './ComparisonView';
 import logoChatBot from '../assets/logo cuadrado.png';
+import logoStack from '../assets/logo cuadrado.png';
 
 const ChatBot = () => {
   const [input, setInput] = useState('');
@@ -329,10 +330,9 @@ How can I help you today?`,
   
   // Hooks de wagmi para conectar wallet y enviar transacciones
   const { address: userAddress, isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
-  const { data: balanceData } = useBalance({
-    address: userAddress,
-  });
+  // const { data: balanceData } = useBalance({
+  //   address: userAddress,
+  // });
   const { data: txHash, sendTransaction, isPending: isSending } = useSendTransaction();
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
     hash: txHash,
@@ -343,11 +343,6 @@ How can I help you today?`,
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [isTransactionPending, setIsTransactionPending] = useState(false);
   const [pendingTransfer, setPendingTransfer] = useState(null);
-
-  // Calcular balance formateado
-  const userBalance = balanceData 
-    ? parseFloat(balanceData.formatted).toFixed(4) 
-    : '0.0000';
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -698,11 +693,6 @@ How can I help you today?`,
         sender: 'bot'
       }]);
     }
-  };
-
-  // Función backend de balance (usada por el chatbot)
-  const handleBalanceCheckBackend = async () => {
-    await handleBalanceCheck();
   };
 
   const handleContactSelect = (contact) => {
